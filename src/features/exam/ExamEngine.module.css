@@ -217,3 +217,41 @@
   flex-direction: column;
   gap: 1.25rem;
 }
+
+/* What the session changed: the delta, the streak and the review queue. */
+.outcome {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+
+.outcomeItem {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.4rem 0.8rem;
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-pill);
+  background: var(--color-neutral-soft);
+  color: var(--color-text-soft);
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.outcomeUp {
+  border-color: var(--color-success-line);
+  background: var(--color-success-soft);
+  color: var(--color-success);
+}
+
+.outcomeDown {
+  border-color: var(--color-danger-line);
+  background: var(--color-danger-soft);
+  color: var(--color-danger);
+}
+
+.outcomeStreak {
+  border-color: rgba(251, 191, 36, 0.4);
+  background: var(--color-warning-soft);
+  color: var(--color-warning);
+}

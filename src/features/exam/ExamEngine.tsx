@@ -1,12 +1,14 @@
 import { useEffect, useMemo, useRef } from 'react';
-import { ChevronLeft, ChevronRight, Clock, Flag, RotateCcw } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Clock, Flag, Flame, RotateCcw, TrendingDown, TrendingUp } from 'lucide-react';
 import { Button } from '../../components/ui/Button';
 import { Card } from '../../components/ui/Card';
 import { Callout } from '../../components/ui/Callout';
 import { Metric } from '../../components/ui/Metric';
 import { QuestionCard } from '../study/QuestionCard';
 import { useExamKeyboard, useExamTimer } from '../../hooks/useStudy';
-import { useSubmitIntento } from '../../hooks/useProgress';
+import { useEstadisticas, useSubmitIntento } from '../../hooks/useProgress';
+import { useProgressionStore } from '../../store/useProgressionStore';
+import { currentStreak } from '../../utils/streak';
 import { useStudyStore } from '../../store/useStudyStore';
 import { formatDuration, gradeExam, PENALTY_PER_WRONG } from '../../utils/scoring';
 import { blockDisplayName } from '../../types/domain';
@@ -175,6 +177,11 @@ function ExamResults() {
   const reset = useStudyStore((state) => state.reset);
 
   const submit = useSubmitIntento();
+  const recordSession = useProgressionStore((state) => state.recordSession);
+  const recordAnswers = useProgressionStore((state) => state.recordAnswers);
+  const streakState = useProgressionStore((state) => state.streak);
+  const reviewCount = useProgressionStore((state) => Object.keys(state.reviewQueue).length);
+  const { estadisticas } = useEstadisticas();
   const hasSubmitted = useRef(false);
 
   // Computed once from the answer sheet. The previous version tallied the same exam twice
@@ -191,6 +198,11 @@ function ExamResults() {
 
     hasSubmitted.current = true;
 
+    // Filed before the network call, so the streak and the review queue advance even
+    // when the attempt cannot reach the server.
+    recordAnswers(questions, answers);
+    recordSession(score.correct + score.wrong);
+
     submit.mutate({
       aciertos: score.correct,
       fallos: score.wrong,
@@ -198,7 +210,7 @@ function ExamResults() {
       bloque,
       fecha: new Date().toISOString(),
     });
-  }, [bloque, questions.length, score, submit]);
+  }, [answers, bloque, questions, recordAnswers, recordSession, score, submit]);
 
   const passed = score.grade >= PASS_MARK;
 
@@ -297,15 +309,90 @@ function ExamResults() {
           )}
         </div>
 
+        <SessionOutcome
+          score={score}
+          averageBefore={estadisticas.notaMedia}
+          attemptsBefore={estadisticas.totalIntentos}
+          streak={currentStreak(streakState)}
+          reviewCount={reviewCount}
+        />
+
         <div className={styles.navigationGroup}>
-          <Button onClick={startReview} variant="secondary">
-            Revisar soluciones
+          {score.wrong > 0 && (
+            <Button onClick={startReview}>
+              Repasar los {score.wrong} {score.wrong === 1 ? 'fallo' : 'fallos'}
+            </Button>
+          )}
+          <Button onClick={startReview} variant={score.wrong > 0 ? 'secondary' : 'primary'}>
+            Ver todas las soluciones
           </Button>
-          <Button onClick={reset} icon={<RotateCcw size={16} aria-hidden="true" />}>
+          <Button onClick={reset} variant="secondary" icon={<RotateCcw size={16} aria-hidden="true" />}>
             Nuevo simulacro
           </Button>
         </div>
       </div>
     </Card>
+  );
+}
+
+interface SessionOutcomeProps {
+  score: { grade: number; wrong: number; correct: number; total: number };
+  /** Average across previous attempts, so the delta compares like with like. */
+  averageBefore: number;
+  attemptsBefore: number;
+  streak: number;
+  reviewCount: number;
+}
+
+/**
+ * What this session changed.
+ *
+ * A grade on its own says how it went; it does not say whether things are improving. The
+ * comparison against the running average is the part that makes the next session feel
+ * worth starting — and it is deliberately omitted on the first attempt, where there is
+ * nothing honest to compare against.
+ */
+function SessionOutcome({
+  score,
+  averageBefore,
+  attemptsBefore,
+  streak,
+  reviewCount,
+}: SessionOutcomeProps) {
+  // The submitted attempt is already folded into the average by the time this renders, so
+  // comparing against it directly would measure the session against itself.
+  const hasHistory = attemptsBefore > 1;
+  const delta = hasHistory ? score.grade - averageBefore : null;
+  const improved = delta !== null && delta > 0.05;
+  const worsened = delta !== null && delta < -0.05;
+
+  return (
+    <div className={styles.outcome}>
+      {delta !== null && (improved || worsened) && (
+        <span className={`${styles.outcomeItem} ${improved ? styles.outcomeUp : styles.outcomeDown}`}>
+          {improved ? (
+            <TrendingUp size={16} aria-hidden="true" />
+          ) : (
+            <TrendingDown size={16} aria-hidden="true" />
+          )}
+          {improved ? '+' : '−'}
+          {Math.abs(delta).toFixed(2).replace('.', ',')} sobre tu media
+        </span>
+      )}
+
+      {streak > 0 && (
+        <span className={`${styles.outcomeItem} ${styles.outcomeStreak}`}>
+          <Flame size={16} aria-hidden="true" />
+          {streak} {streak === 1 ? 'día seguido' : 'días seguidos'}
+        </span>
+      )}
+
+      {reviewCount > 0 && (
+        <span className={styles.outcomeItem}>
+          <RotateCcw size={16} aria-hidden="true" />
+          {reviewCount} en la cola de repaso
+        </span>
+      )}
+    </div>
   );
 }

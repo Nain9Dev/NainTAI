@@ -166,3 +166,37 @@
     display: none;
   }
 }
+
+.trailing {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Streak counter. Amber while alive, red once today is still pending. */
+.streak {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.4rem 0.7rem;
+  border: 1px solid rgba(251, 191, 36, 0.4);
+  border-radius: var(--radius-pill);
+  background: var(--color-warning-soft);
+  color: var(--color-warning);
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.streakAtRisk {
+  border-color: var(--color-danger-line);
+  background: var(--color-danger-soft);
+  color: var(--color-danger);
+}
+
+@media (max-width: 60rem) {
+  .trailing {
+    gap: 0.4rem;
+  }
+}

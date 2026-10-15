@@ -1,8 +1,10 @@
 import { useEffect, useState } from 'react';
 import { Link } from '@tanstack/react-router';
-import { Database, Menu, ServerCrash, X } from 'lucide-react';
+import { Database, Flame, Menu, ServerCrash, X } from 'lucide-react';
 import { useConnectionStore } from '../../store/useConnectionStore';
 import { useAuthStore } from '../../store/useAuthStore';
+import { useProgressionStore } from '../../store/useProgressionStore';
+import { currentStreak, isStreakAtRisk } from '../../utils/streak';
 import styles from './Header.module.css';
 
 const NAV_ITEMS = [
@@ -78,7 +80,10 @@ export function Header() {
           </a>
         </nav>
 
-        <ConnectionPill mode={mode} isGuest={isGuest} />
+        <div className={styles.trailing}>
+          <StreakPill />
+          <ConnectionPill mode={mode} isGuest={isGuest} />
+        </div>
       </div>
     </header>
   );
@@ -102,6 +107,43 @@ function ConnectionPill({ mode, isGuest }: { mode: string; isGuest: boolean }) {
     <span className={`${styles.status} ${styles.online}`}>
       <Database size={14} aria-hidden="true" />
       {isGuest ? 'Invitado' : 'Conectado'}
+    </span>
+  );
+}
+
+/**
+ * The streak, kept in view.
+ *
+ * Placed in the header rather than only on the home panel because it is the one number
+ * that should follow the candidate around: it is visible from the results screen, which
+ * is exactly where the decision to come back tomorrow gets made.
+ */
+function StreakPill() {
+  const streakState = useProgressionStore((state) => state.streak);
+  const streak = currentStreak(streakState);
+
+  if (streak === 0) {
+    return null;
+  }
+
+  const atRisk = isStreakAtRisk(streakState);
+
+  return (
+    <span
+      className={`${styles.streak} ${atRisk ? styles.streakAtRisk : ''}`}
+      title={
+        atRisk
+          ? 'Todavía no has practicado hoy. Una ronda rápida mantiene la racha.'
+          : `Racha de ${streak} ${streak === 1 ? 'día' : 'días'}`
+      }
+    >
+      <Flame size={14} aria-hidden="true" />
+      {streak}
+      <span className="visually-hidden">
+        {atRisk
+          ? `Racha de ${streak} días, pendiente de practicar hoy`
+          : `Racha de ${streak} días`}
+      </span>
     </span>
   );
 }
