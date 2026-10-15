@@ -1,84 +1,124 @@
-# Sistema Oposiciones TAI — Backend
+# Sistema Oposiciones TAI — Full-Stack Exam Simulator
 
 [![.NET](https://img.shields.io/badge/.NET-10.0-512BD4?logo=dotnet&logoColor=white)](https://dotnet.microsoft.com/)
+[![React](https://img.shields.io/badge/React-19-61DAFB?logo=react&logoColor=black)](https://react.dev/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-6-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 [![Architecture](https://img.shields.io/badge/Architecture-Clean%20%2B%20Dapper-brightgreen)](docs/20-architecture.md)
 [![Database](https://img.shields.io/badge/Database-PostgreSQL%20%2B%20plpgsql-336791?logo=postgresql&logoColor=white)](docs/21-data-model.md)
+[![Tests](https://img.shields.io/badge/Tests-180%20passing-success)](docs/50-traceability.md)
 [![Method](https://img.shields.io/badge/Method-Spec%20Driven%20Development-0A7EA4)](docs/README.md)
 
-REST API for an exam-simulation platform aimed at the Spanish **TAI** civil service
-examination (Técnico Auxiliar de Informática, INAP). It serves a question bank drawn from
-the official syllabus, marks attempts under the official scale and reports where a
-candidate's performance is weakest.
+Full-stack civil service exam simulator platform aimed at the Spanish **TAI** examination (Técnico Auxiliar de Informática, INAP). It serves a question bank drawn from the official syllabus, marks attempts under the official scale, provides offline resilience via IndexedDB, and reports actionable performance analytics.
 
-Built as a working study tool first and a technical demonstration second — which is why the
-things it gets wrong get fixed rather than hidden.
+Consolidated monorepo delivering the complete product: PostgreSQL database migrations, .NET 10 Clean Architecture backend API, and React 19 SPA client.
+
+---
 
 ## Features
 
-- **Study mode.** Randomised questions filtered by syllabus block, topic and difficulty.
-- **Official INAP marking.** +1.00 per correct answer, −0.33 per wrong one, 0.00 for blanks.
-  Computed on the server; a tampered client cannot declare its own grade.
-- **Attempt lifecycle.** Start, answer question by question, finish. Answers are validated
-  against the attempt's own test, and an attempt belongs to exactly one candidate.
-- **Progress analytics.** Accuracy, average grade, weighted per-block breakdown, trend over
-  the last ten attempts, and the weakest block once the sample is large enough to mean
-  anything.
-- **Cookie sessions.** The JWT never reaches JavaScript. `HttpOnly` cookies plus a
-  session-scoped CSRF token, with rotation and effective logout.
+- **Study & Exam Modes.** Immediate explanations with rationale in *Study mode*; timed countdown and hidden answers in *Exam mode*.
+- **Official INAP Marking.** +1.00 per correct answer, −0.33 per wrong one, 0.00 for blanks. Server-authoritative scoring prevents client-side grade tampering.
+- **Attempt Lifecycle.** Start, answer question by question, finish. Answers are validated against the attempt's own test with candidate session isolation.
+- **Progress Analytics & Daily Goals.** Accuracy, average grade, per-block breakdown, 10-attempt rolling trends, daily practice goals, and study streaks.
+- **Offline Resilience.** Exams sat without signal are queued in IndexedDB and replayed once connectivity returns. A reload mid-exam preserves the answer sheet and timer.
+- **Secure Cookie Sessions.** JWT never touches JavaScript; `HttpOnly` SameSite cookies plus a session-scoped CSRF token, rotation, and server revocation list.
+
+---
 
 ## Architecture
 
-Clean Architecture over four projects, dependencies pointing inwards.
+Dependencies point inwards. Clean Architecture over four backend projects with a decoupled frontend client.
 
 ```mermaid
 flowchart LR
-    API["Oposiciones.Api<br/>transport"] --> APP["Oposiciones.Application<br/>business rules"]
+    CLIENT["Tai.Client<br/>React 19 + TypeScript :5290"] --> API["Oposiciones.Api<br/>ASP.NET Core :5298"]
+    CLIENT -.->|offline fallback| IDB[("IndexedDB + Static Data")]
+    API --> APP["Oposiciones.Application<br/>business rules"]
     APP --> DOM["Oposiciones.Domain<br/>entities, contracts"]
     INFRA["Oposiciones.Infrastructure<br/>Dapper repositories"] --> DOM
     API -.->|composition root| INFRA
     INFRA --> PG[("PostgreSQL")]
 
+    style CLIENT fill:#10B981,stroke:#fff,stroke-width:2px,color:#fff
     style API fill:#512BD4,stroke:#fff,stroke-width:2px,color:#fff
     style APP fill:#2A4878,stroke:#fff,color:#fff
     style DOM fill:#182B49,stroke:#fff,stroke-width:2px,color:#fff
     style INFRA fill:#2A4878,stroke:#fff,color:#fff
     style PG fill:#336791,stroke:#fff,color:#fff
+    style IDB fill:#8B5A00,stroke:#fff,color:#fff
 ```
 
-Full detail in [`docs/20-architecture.md`](docs/20-architecture.md).
+| Layer / Component | Location | Description |
+| :--- | :--- | :--- |
+| **Web Client** | `Tai.Client/` | React 19, TypeScript, Zustand, TanStack Query, IndexedDB (:5290) |
+| **Transport / API** | `src/Oposiciones.Api/` | ASP.NET Core Web API, JWT cookies, CSRF, Swagger (:5298) |
+| **Application** | `src/Oposiciones.Application/` | Business rules, attempt scoring, and question service |
+| **Domain** | `src/Oposiciones.Domain/` | Entities, invariants, syllabus blocks, and repository contracts |
+| **Infrastructure** | `src/Oposiciones.Infrastructure/` | Dapper repositories, PostgreSQL stored functions |
+| **Database** | `db/*.sql` | 8 ordered PostgreSQL schema migrations and synthetic seeds |
 
-## Quick start
+---
+
+## Port Allocation
+
+Registered in `D:\Development\Tools\dev-ports.json`:
+
+| Service | Port | Hostname / URL |
+| :--- | :--- | :--- |
+| **Tai.Client** (Vite Dev) | `5290` | `http://tai.localhost:5290` |
+| **Tai.Client** (Preview) | `5291` | `http://tai.localhost:5291` |
+| **Oposiciones.Api** (HTTP) | `5298` | `http://tai.localhost:5298` |
+| **Oposiciones.Api** (HTTPS) | `5299` | `https://tai.localhost:5299` |
+| **PostgreSQL** | `55432` / `5292` | `127.0.0.1:55432` (or `5292` local container) |
+
+---
+
+## Quick Start
+
+### 1. Database Setup
 
 ```bash
 docker run -d --name tai-db -e POSTGRES_PASSWORD=tai -e POSTGRES_USER=tai -e POSTGRES_DB=oposicionestai -p 55432:5432 postgres:16-alpine
-```
 
-```bash
+# Apply all migrations in order:
 for f in db/*.sql; do docker exec -i tai-db psql -U tai -d oposicionestai -v ON_ERROR_STOP=1 -q < "$f"; done
 ```
+
+### 2. Backend API (.NET 10)
 
 ```bash
 dotnet run --project src/Oposiciones.Api/Oposiciones.Api.csproj
 ```
 
-Swagger lives at `/swagger` in development. Step-by-step instructions, configuration
-reference and troubleshooting are in [`docs/60-runbook.md`](docs/60-runbook.md).
+Interactive Swagger documentation lives at `http://tai.localhost:5298/swagger`.
+
+### 3. Frontend Web Client (Tai.Client)
+
+```bash
+cd Tai.Client
+npm install
+npm run dev
+```
+
+The web client opens on `http://tai.localhost:5290`.
+
+---
 
 ## Verification
 
+Full suite of **180 automated tests**:
+
 ```bash
+# Backend unit tests (84 tests)
 dotnet test tests/Oposiciones.UnitTests
+
+# Frontend verification: typecheck, lint, unit tests, and build (96 tests)
+npm --prefix Tai.Client run verify
 ```
 
-```bash
-bash scripts/verify-api.sh
-```
+---
 
-70 unit tests over the business rules and 48 end-to-end assertions over the public contract.
-The end-to-end script needs a running instance and a migrated database; it exits non-zero on
-failure, so it works as a deployment gate.
-
-## API surface
+## API Surface
 
 | Method | Route | Auth | Purpose |
 | :--- | :--- | :--- | :--- |
@@ -86,7 +126,7 @@ failure, so it works as a deployment gate.
 | `GET` | `/api/syllabus/blocks`, `/api/syllabus/topics` | — | Official syllabus |
 | `GET` | `/api/preguntas` | — | Randomised questions |
 | `GET` | `/api/preguntas/bloque/{bloque}` | — | Questions for one block |
-| `GET` | `/api/preguntas/disponibilidad` | — | How many questions match a filter |
+| `GET` | `/api/preguntas/disponibilidad` | — | Question count matching criteria |
 | `POST` | `/api/auth/register`, `/api/auth/login` | — | Account and session |
 | `POST` | `/api/auth/refresh`, `/api/auth/logout` | cookie | Session rotation and teardown |
 | `GET` | `/api/auth/me` | cookie | Current profile |
@@ -94,14 +134,11 @@ failure, so it works as a deployment gate.
 | `GET` | `/api/progreso/historial` | cookie | Paginated history |
 | `GET` | `/api/progreso/estadisticas` | cookie | Performance dashboard |
 | `DELETE` | `/api/progreso/historial` | cookie + CSRF | Clear own history |
-| `GET` | `/api/tests/{id}` | — | Test detail, without the answer key |
+| `GET` | `/api/tests/{id}` | — | Test detail without answer key |
 | `POST` | `/api/tests/generate` | cookie + CSRF | Generate a test |
 | `POST` | `/api/attempts/start`, `/{id}/answer`, `/{id}/finish` | cookie + CSRF | Attempt lifecycle |
 
-The block selector accepts the curriculum ordinal (`1`–`4`), the roman code (`I`–`IV`) and
-the wildcard `all`. All three resolve to the same block — see
-[ADR-0004](docs/30-decisions/ADR-0004-block-ordinal-not-id.md) for why that distinction
-turned out to matter.
+---
 
 ## Documentation
 
@@ -112,18 +149,14 @@ Start at [`docs/README.md`](docs/README.md).
 - [Requirements](docs/10-requirements.md) — `REQ-###` in EARS notation
 - [Open questions](docs/11-open-questions.md) — unresolved ambiguity, and what it blocks
 - [Architecture](docs/20-architecture.md) · [Data model](docs/21-data-model.md)
-- [Decisions](docs/30-decisions/) — six ADRs
+- [Decisions](docs/30-decisions/) — 9 ADRs (including ADR-0009 monorepo consolidation)
 - [Tasks](docs/40-tasks.md) · [Blockers](docs/41-blockers.md)
-- [Traceability](docs/50-traceability.md) — every requirement and the test that proves it
+- [Traceability](docs/50-traceability.md) — requirements mapping to tests
 - [Runbook](docs/60-runbook.md) · [Changelog](docs/90-changelog.md)
+- [Deployment](DEPLOYMENT.md) — Neon, Render, and Vercel setup
 
-Agent instructions live in [`AGENTS.md`](AGENTS.md).
-
-## Client
-
-The web client is a separate repository:
-[tai-study-system-js](https://github.com/Nain9Dev/tai-study-system-js).
+---
 
 ## Author
 
-Built by [NainDev (Aitor Nain)](https://github.com/Nain9Dev).
+Architecture and implementation by [NainDev (Aitor Nain)](https://github.com/Nain9Dev).

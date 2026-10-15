@@ -7,8 +7,8 @@ nothing about anyone, and no layer above ever reaches past its immediate neighbo
 
 ```mermaid
 flowchart TD
-    CLIENT["Web client<br/>tai-study-system-js"]
-    API["Oposiciones.Api<br/>controllers, middleware, DTOs"]
+    CLIENT["Web client<br/>Tai.Client (React 19 + TS :5290)"]
+    API["Oposiciones.Api<br/>controllers, middleware, DTOs :5298"]
     APP["Oposiciones.Application<br/>services, use cases, business rules"]
     DOM["Oposiciones.Domain<br/>entities, repository contracts, exceptions"]
     INFRA["Oposiciones.Infrastructure<br/>Dapper repositories, connection factory"]

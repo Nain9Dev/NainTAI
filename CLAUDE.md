@@ -41,3 +41,12 @@ docker exec tai-verify-db psql -U verify -d oposicionestai -c "TRUNCATE intentos
 Heredocs containing C# raw string literals (`"""`) and `$` interpolation are fragile in this
 environment. Use the Write tool for source files and reserve the shell for builds, tests and
 git.
+
+## Web Client (Tai.Client)
+
+The web client lives in `Tai.Client/` (React 19 + TypeScript, pinned to `tai.localhost:5290`).
+Always verify client changes with:
+
+```bash
+npm --prefix Tai.Client run verify
+```

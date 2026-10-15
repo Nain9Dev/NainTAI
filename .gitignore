@@ -426,3 +426,11 @@ FodyWeavers.xsd
 *.msix
 *.msm
 *.msp
+
+# Node & Frontend Client
+**/node_modules/
+**/dist/
+**/dist-ssr/
+**/.tanstack/
+**/.vercel/
+*.tsbuildinfo
