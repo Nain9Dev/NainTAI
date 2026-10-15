@@ -434,3 +434,5 @@ FodyWeavers.xsd
 **/.tanstack/
 **/.vercel/
 *.tsbuildinfo
+.vercel
+.env*
