@@ -1,0 +1,11 @@
+[
+  {
+    "id": 1,
+    "fecha": "2026-08-23T16:15:47.897Z",
+    "aciertos": 15,
+    "fallos": 5,
+    "total": 20,
+    "nota": 6.8,
+    "bloque": "all"
+  }
+]

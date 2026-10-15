@@ -1,0 +1,202 @@
+/* Sticky glass header, matching naindev.com. */
+
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  border-bottom: 1px solid var(--color-line);
+  background: rgba(8, 11, 18, 0.84);
+  backdrop-filter: blur(1.15rem) saturate(125%);
+  transition: background var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.scrolled {
+  background: rgba(8, 11, 18, 0.94);
+  box-shadow: var(--shadow-panel);
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  min-height: var(--header-height);
+  gap: 1.5rem;
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  color: var(--color-text);
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  text-decoration: none;
+}
+
+.brandMark {
+  display: grid;
+  place-items: center;
+  width: 2.1rem;
+  height: 2.1rem;
+  border-radius: 0.6rem;
+  background: linear-gradient(135deg, var(--color-primary), #6379e8);
+  color: var(--color-primary-ink);
+  font-size: 0.85rem;
+  font-weight: 800;
+  transition: transform 300ms var(--ease-spring);
+}
+
+.brand:hover .brandMark {
+  transform: scale(1.06);
+}
+
+.brandName {
+  color: var(--color-text-muted);
+  font-weight: 600;
+}
+
+.nav {
+  display: flex;
+  justify-content: center;
+  gap: clamp(0.75rem, 2vw, 2rem);
+}
+
+.link {
+  position: relative;
+  padding: 0.35rem 0;
+  color: var(--color-text-muted);
+  font-size: 0.9rem;
+  font-weight: 650;
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+/* Underline that grows from nothing, the portfolio's navigation signature. */
+.link::after {
+  position: absolute;
+  right: 0;
+  bottom: -0.35rem;
+  left: 0;
+  height: 2px;
+  border-radius: var(--radius-pill);
+  background: var(--color-secondary);
+  content: '';
+  transform: scaleX(0);
+  transition: transform 160ms ease;
+}
+
+.link:hover {
+  color: var(--color-text);
+}
+
+.linkActive {
+  color: var(--color-text);
+}
+
+.linkActive::after {
+  transform: scaleX(1);
+}
+
+.status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.4rem 0.8rem;
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-pill);
+  background: var(--color-neutral-soft);
+  color: var(--color-text-muted);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.online {
+  border-color: var(--color-success-line);
+  background: var(--color-success-soft);
+  color: var(--color-success);
+}
+
+.offline {
+  border-color: var(--color-warning-line);
+  background: var(--color-warning-soft);
+  color: var(--color-warning);
+}
+
+.menuButton {
+  display: none;
+  padding: 0.5rem;
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-small);
+  background: var(--color-neutral-soft);
+  color: var(--color-text);
+  cursor: pointer;
+}
+
+@media (max-width: 60rem) {
+  .layout {
+    grid-template-columns: auto auto;
+    justify-content: space-between;
+    gap: 0.75rem;
+  }
+
+  .menuButton {
+    display: inline-flex;
+  }
+
+  .nav {
+    order: 3;
+    grid-column: 1 / -1;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    gap: 1rem;
+    padding-bottom: 1rem;
+  }
+
+  .navCollapsed {
+    display: none;
+  }
+
+  .status {
+    display: none;
+  }
+}
+
+.trailing {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Streak counter. Amber while alive, red once today is still pending. */
+.streak {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.4rem 0.7rem;
+  border: 1px solid rgba(251, 191, 36, 0.4);
+  border-radius: var(--radius-pill);
+  background: var(--color-warning-soft);
+  color: var(--color-warning);
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.streakAtRisk {
+  border-color: var(--color-danger-line);
+  background: var(--color-danger-soft);
+  color: var(--color-danger);
+}
+
+@media (max-width: 60rem) {
+  .trailing {
+    gap: 0.4rem;
+  }
+}

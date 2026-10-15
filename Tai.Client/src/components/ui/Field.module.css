@@ -1,0 +1,48 @@
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.label {
+  color: var(--color-text-soft);
+  font-size: 0.88rem;
+  font-weight: 600;
+}
+
+.hint {
+  color: var(--color-text-muted);
+  font-size: 0.82rem;
+}
+
+.error {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: var(--color-danger);
+  font-size: 0.85rem;
+}
+
+.select {
+  appearance: none;
+  padding-right: 2.5rem;
+  /* Chevron drawn inline so the control needs no icon font or extra request. */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='9' viewBox='0 0 14 9' fill='none'%3E%3Cpath d='M1 1L7 7L13 1' stroke='%23A8B4C7' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  cursor: pointer;
+}
+
+.select option {
+  background: var(--color-surface);
+  color: var(--color-text);
+}
+
+.invalid {
+  border-color: var(--color-danger-line);
+}
+
+.invalid:focus {
+  border-color: var(--color-danger);
+  box-shadow: 0 0 0 3px rgba(248, 113, 113, 0.2);
+}

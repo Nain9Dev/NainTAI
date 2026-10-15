@@ -1,0 +1,98 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+  gap: 1.25rem;
+}
+
+.fieldset {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.legend {
+  padding: 0;
+  margin-bottom: 0.85rem;
+  color: var(--color-text-soft);
+  font-size: 0.88rem;
+  font-weight: 600;
+}
+
+.modes {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
+  gap: 0.85rem;
+}
+
+/* Each mode is a full clickable card, not a bare radio with a label beside it. */
+.mode {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.85rem;
+  padding: 1rem 1.15rem;
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-medium);
+  background: rgba(9, 10, 15, 0.5);
+  cursor: pointer;
+  transition: border-color var(--transition-fast), background var(--transition-fast),
+    transform var(--transition-fast);
+}
+
+.mode:hover {
+  border-color: var(--color-line-strong);
+  transform: translateY(-2px);
+}
+
+/* The ring is drawn on the card because the native radio is visually replaced. */
+.mode:has(input:focus-visible) {
+  outline: 3px solid var(--color-secondary);
+  outline-offset: 3px;
+}
+
+.modeSelected {
+  border-color: rgba(96, 165, 250, 0.55);
+  background: rgba(96, 165, 250, 0.1);
+}
+
+.mode input {
+  width: auto;
+  margin-top: 0.25rem;
+  accent-color: var(--color-primary);
+}
+
+.modeText {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  min-width: 0;
+}
+
+.modeTitle {
+  font-weight: 700;
+}
+
+.modeHint {
+  color: var(--color-text-muted);
+  font-size: 0.85rem;
+  line-height: 1.5;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem;
+}
+
+.availability {
+  color: var(--color-text-muted);
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.04em;
+}

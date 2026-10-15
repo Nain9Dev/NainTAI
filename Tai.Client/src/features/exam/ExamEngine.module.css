@@ -1,0 +1,257 @@
+.engine {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem 1.25rem;
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-medium);
+  background: rgba(9, 10, 15, 0.6);
+  backdrop-filter: blur(0.5rem);
+}
+
+.barGroup {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.progressText {
+  color: var(--color-text-muted);
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.05em;
+}
+
+.progressTrack {
+  width: min(14rem, 40vw);
+  height: 6px;
+  overflow: hidden;
+  border-radius: var(--radius-pill);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.progressFill {
+  height: 100%;
+  border-radius: var(--radius-pill);
+  background: linear-gradient(90deg, var(--color-primary), var(--color-primary-strong));
+  transition: width var(--transition-base);
+}
+
+.timer {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.4rem 0.85rem;
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-pill);
+  background: var(--color-neutral-soft);
+  font-family: var(--font-mono);
+  font-size: 0.95rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Under two minutes the clock turns urgent, and pulses unless motion is reduced. */
+.timerUrgent {
+  border-color: var(--color-danger-line);
+  background: var(--color-danger-soft);
+  color: var(--color-danger);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .timerUrgent {
+    animation: pulse 1.6s ease-in-out infinite;
+  }
+}
+
+@keyframes pulse {
+  50% {
+    opacity: 0.65;
+  }
+}
+
+/* Question palette: the candidate's map of what is answered and what is left. */
+.palette {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.paletteItem {
+  display: grid;
+  place-items: center;
+  width: 2.2rem;
+  height: 2.2rem;
+  border: 1px solid var(--color-line);
+  border-radius: 0.5rem;
+  background: rgba(9, 10, 15, 0.6);
+  color: var(--color-text-muted);
+  cursor: pointer;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  font-weight: 700;
+  transition: all var(--transition-fast);
+}
+
+.paletteItem:hover {
+  border-color: var(--color-line-strong);
+  color: var(--color-text);
+}
+
+.paletteAnswered {
+  border-color: rgba(96, 165, 250, 0.5);
+  background: rgba(96, 165, 250, 0.14);
+  color: var(--color-primary-strong);
+}
+
+.paletteCurrent {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.35);
+  color: var(--color-text);
+}
+
+.paletteCorrect {
+  border-color: var(--color-success-line);
+  background: var(--color-success-soft);
+  color: var(--color-success);
+}
+
+.paletteWrong {
+  border-color: var(--color-danger-line);
+  background: var(--color-danger-soft);
+  color: var(--color-danger);
+}
+
+.navigation {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.navigationGroup {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+
+.hint {
+  color: var(--color-text-muted);
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  letter-spacing: 0.04em;
+}
+
+.kbd {
+  padding: 0.1rem 0.35rem;
+  border: 1px solid var(--color-line-strong);
+  border-radius: 0.3rem;
+  background: rgba(255, 255, 255, 0.05);
+  font-size: 0.72rem;
+}
+
+/* Results ---------------------------------------------------------------- */
+
+.results {
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+}
+
+.grade {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.75rem;
+}
+
+.gradeValue {
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 8vw, 4.5rem);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.04em;
+}
+
+.gradePass {
+  color: var(--color-success);
+}
+
+.gradeFail {
+  color: var(--color-danger);
+}
+
+.gradeScale {
+  color: var(--color-text-muted);
+  font-size: 1.1rem;
+}
+
+.gradeVerdict {
+  padding: 0.3rem 0.8rem;
+  border-radius: var(--radius-pill);
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.verdictPass {
+  background: var(--color-success-soft);
+  color: var(--color-success);
+}
+
+.verdictFail {
+  background: var(--color-danger-soft);
+  color: var(--color-danger);
+}
+
+.review {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+/* What the session changed: the delta, the streak and the review queue. */
+.outcome {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+
+.outcomeItem {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.4rem 0.8rem;
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-pill);
+  background: var(--color-neutral-soft);
+  color: var(--color-text-soft);
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.outcomeUp {
+  border-color: var(--color-success-line);
+  background: var(--color-success-soft);
+  color: var(--color-success);
+}
+
+.outcomeDown {
+  border-color: var(--color-danger-line);
+  background: var(--color-danger-soft);
+  color: var(--color-danger);
+}
+
+.outcomeStreak {
+  border-color: rgba(251, 191, 36, 0.4);
+  background: var(--color-warning-soft);
+  color: var(--color-warning);
+}

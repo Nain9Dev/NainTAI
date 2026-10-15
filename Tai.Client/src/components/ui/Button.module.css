@@ -1,0 +1,106 @@
+/* Button treatment lifted from naindev.com: gradient fill, lift on hover, press on active. */
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  /* 44px is the smallest reliably tappable target on a touch screen. */
+  min-height: 44px;
+  min-width: 44px;
+  padding: 12px 24px;
+  border: 1px solid transparent;
+  border-radius: 0.78rem;
+  cursor: pointer;
+  font-family: inherit;
+  font-weight: 700;
+  font-size: 0.95rem;
+  line-height: 1.2;
+  text-align: center;
+  text-decoration: none;
+  transition: all var(--transition-base);
+}
+
+.button:hover:not(:disabled) {
+  transform: translateY(-4px);
+}
+
+.button:active:not(:disabled) {
+  transform: scale(0.96) translateY(0);
+  transition-duration: 100ms;
+}
+
+.button:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+  transform: none;
+}
+
+.primary {
+  background: linear-gradient(135deg, var(--color-primary), #6379e8);
+  color: var(--color-primary-ink);
+  box-shadow: var(--shadow-glow);
+}
+
+.primary:hover:not(:disabled) {
+  background: linear-gradient(135deg, var(--color-primary-strong), var(--color-primary));
+  box-shadow: 0 1.2rem 3rem rgba(87, 111, 232, 0.27);
+}
+
+.secondary {
+  border-color: var(--color-line);
+  background: rgba(255, 255, 255, 0.025);
+  color: var(--color-text);
+}
+
+.secondary:hover:not(:disabled) {
+  border-color: var(--color-line-strong);
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.ghost {
+  border-color: transparent;
+  background: transparent;
+  color: var(--color-text-muted);
+}
+
+.ghost:hover:not(:disabled) {
+  color: var(--color-text);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.danger {
+  border-color: var(--color-danger-line);
+  background: var(--color-danger-soft);
+  color: var(--color-danger);
+}
+
+.danger:hover:not(:disabled) {
+  background: rgba(248, 113, 113, 0.2);
+}
+
+.small {
+  min-height: 2.4rem;
+  padding: 0.5rem 0.9rem;
+  font-size: 0.85rem;
+}
+
+.fullWidth {
+  width: 100%;
+}
+
+/* Spinner shown while a button's action is in flight. */
+.spinner {
+  width: 1rem;
+  height: 1rem;
+  border: 2px solid currentColor;
+  border-right-color: transparent;
+  border-radius: 50%;
+  animation: spin 0.65s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

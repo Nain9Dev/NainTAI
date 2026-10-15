@@ -1,0 +1,91 @@
+/*
+ * Design tokens, aligned with naindev.com.
+ *
+ * The previous set defined a parallel vocabulary (--bg-primary, --accent-cyan,
+ * --text-secondary) while the components referenced naindev's names (--color-surface,
+ * --color-line, --color-success). Those references resolved to nothing, so a good part
+ * of the interface was rendering with browser defaults. One vocabulary now, and it is
+ * the portfolio's.
+ */
+
+:root {
+  color-scheme: dark;
+
+  /* Surfaces */
+  --color-background: #090a0f;
+  --color-background-soft: #0f111a;
+  --color-surface: #131622;
+  --color-surface-strong: #1c2133;
+  --color-surface-raised: rgba(22, 31, 46, 0.96);
+
+  /* Text */
+  --color-text: #e2e8f0;
+  --color-text-soft: #d1d9e2;
+  --color-text-muted: #a8b4c7;
+
+  /* Lines */
+  --color-line: rgba(255, 255, 255, 0.08);
+  --color-line-strong: rgba(255, 255, 255, 0.15);
+
+  /* Brand */
+  --color-primary: #3b82f6;
+  --color-primary-strong: #60a5fa;
+  --color-primary-ink: #ffffff;
+  --color-secondary: #3b82f6;
+  --color-secondary-strong: #60a5fa;
+
+  /*
+   * Exam feedback. Each state carries a soft fill and a border so it reads without
+   * relying on hue alone: roughly one in twelve men has a colour vision deficiency,
+   * and getting a question wrong should not be one of the things they have to guess.
+   */
+  --color-success: #34d399;
+  --color-success-soft: rgba(52, 211, 153, 0.12);
+  --color-success-line: rgba(52, 211, 153, 0.45);
+  --color-danger: #f87171;
+  --color-danger-soft: rgba(248, 113, 113, 0.12);
+  --color-danger-line: rgba(248, 113, 113, 0.45);
+  --color-warning: #fbbf24;
+  --color-warning-soft: rgba(251, 191, 36, 0.12);
+  --color-warning-line: rgba(251, 191, 36, 0.45);
+  --color-neutral-soft: rgba(255, 255, 255, 0.04);
+
+  /* Depth */
+  --shadow-card: 0 2rem 5.5rem rgba(0, 0, 0, 0.45);
+  --shadow-glow: 0 1.5rem 4rem rgba(59, 130, 246, 0.22);
+  --shadow-panel: 0 0.75rem 2.5rem rgba(0, 0, 0, 0.2);
+
+  /* Radii */
+  --radius-small: 0.85rem;
+  --radius-medium: 1.25rem;
+  --radius-large: 2rem;
+  --radius-pill: 999px;
+
+  /* Layout */
+  --shell-width: 78rem;
+  --header-height: 6rem;
+
+  /* Typography */
+  --font-sans: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-display: 'Outfit', 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: 'Cascadia Code', 'SFMono-Regular', Consolas, 'Liberation Mono', monospace;
+
+  /* Motion */
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-out: cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-fast: 150ms var(--ease-out);
+  --transition-base: 250ms var(--ease-out);
+
+  /* Spacing */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+
+  --glow-opacity: 0.08;
+}

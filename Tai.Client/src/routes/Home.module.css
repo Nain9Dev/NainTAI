@@ -1,0 +1,11 @@
+.hero {
+  max-width: 52rem;
+  margin-bottom: 0.5rem;
+}
+
+.title {
+  /* Tighter than the global h1 so the setup card stays above the fold on a laptop. */
+  max-width: 18ch;
+  margin-bottom: 1.25rem;
+  font-size: clamp(2.2rem, 5.5vw, 3.6rem);
+}

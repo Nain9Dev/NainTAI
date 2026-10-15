@@ -1,0 +1,162 @@
+.question {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.counter {
+  color: var(--color-secondary);
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+}
+
+.tag {
+  padding: 0.2rem 0.6rem;
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-pill);
+  background: var(--color-neutral-soft);
+  color: var(--color-text-muted);
+  font-size: 0.74rem;
+  font-weight: 600;
+}
+
+.statement {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(1.15rem, 2.2vw, 1.45rem);
+  font-weight: 600;
+  line-height: 1.4;
+  letter-spacing: -0.015em;
+}
+
+.options {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+}
+
+.option {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.85rem;
+  width: 100%;
+  padding: 1rem 1.15rem;
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-medium);
+  background: rgba(9, 10, 15, 0.5);
+  color: var(--color-text);
+  cursor: pointer;
+  font-size: 0.98rem;
+  line-height: 1.55;
+  text-align: left;
+  transition: border-color var(--transition-fast), background var(--transition-fast),
+    transform var(--transition-fast);
+}
+
+.option:hover:not(:disabled) {
+  border-color: var(--color-line-strong);
+  background: rgba(255, 255, 255, 0.05);
+  transform: translateX(0.25rem);
+}
+
+.option:disabled {
+  cursor: default;
+}
+
+/* Letter badge. Doubles as the keyboard shortcut hint: A, B, C, D select the option. */
+.marker {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 1.9rem;
+  height: 1.9rem;
+  border: 1px solid var(--color-line-strong);
+  border-radius: 0.55rem;
+  background: rgba(255, 255, 255, 0.03);
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+.selected {
+  border-color: rgba(96, 165, 250, 0.6);
+  background: rgba(96, 165, 250, 0.12);
+}
+
+.selected .marker {
+  border-color: var(--color-primary);
+  background: var(--color-primary);
+  color: var(--color-primary-ink);
+}
+
+/*
+ * Right and wrong carry an icon and a border as well as a hue. Roughly one man in twelve
+ * has a colour vision deficiency, and finding out whether you got it right should not
+ * depend on telling red from green.
+ */
+.correct {
+  border-color: var(--color-success-line);
+  background: var(--color-success-soft);
+}
+
+.correct .marker {
+  border-color: var(--color-success);
+  background: var(--color-success);
+  color: #06281c;
+}
+
+.incorrect {
+  border-color: var(--color-danger-line);
+  background: var(--color-danger-soft);
+}
+
+.incorrect .marker {
+  border-color: var(--color-danger);
+  background: var(--color-danger);
+  color: #3b0a0a;
+}
+
+.verdict {
+  flex-shrink: 0;
+  margin-left: auto;
+  align-self: center;
+}
+
+.correctText {
+  color: var(--color-success);
+}
+
+.incorrectText {
+  color: var(--color-danger);
+}
+
+.feedback {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  padding: 1rem 1.15rem;
+  border-left: 3px solid var(--color-primary);
+  border-radius: 0 var(--radius-small) var(--radius-small) 0;
+  background: rgba(96, 165, 250, 0.07);
+  font-size: 0.92rem;
+  line-height: 1.6;
+}
+
+.feedbackTitle {
+  font-weight: 700;
+}
+
+.feedbackMeta {
+  color: var(--color-text-muted);
+  font-size: 0.84rem;
+}

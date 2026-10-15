@@ -1,0 +1,56 @@
+.skeleton {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--radius-small);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+/* The sheen only runs when the viewer has not asked for reduced motion. */
+@media (prefers-reduced-motion: no-preference) {
+  .skeleton::after {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.06),
+      transparent
+    );
+    content: '';
+    transform: translateX(-100%);
+    animation: shimmer 1.4s ease-in-out infinite;
+  }
+}
+
+@keyframes shimmer {
+  to {
+    transform: translateX(100%);
+  }
+}
+
+.text {
+  height: 0.9rem;
+  margin-bottom: 0.6rem;
+}
+
+.title {
+  height: 1.6rem;
+  width: 45%;
+  margin-bottom: 1rem;
+}
+
+.card {
+  height: 7rem;
+  margin-bottom: 1rem;
+  border-radius: var(--radius-medium);
+}
+
+.metric {
+  height: 5.5rem;
+  border-radius: var(--radius-medium);
+}
+
+.question {
+  height: 13rem;
+  border-radius: var(--radius-large);
+}

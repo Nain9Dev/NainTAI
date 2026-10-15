@@ -1,0 +1,392 @@
+[
+  {
+    "id": 101,
+    "enunciado": "¿Qué norma es la norma suprema del ordenamiento jurídico español?",
+    "opciones": [
+      "El Código Civil",
+      "La Constitución",
+      "Una ley orgánica",
+      "Un reglamento"
+    ],
+    "respuestaCorrecta": 1,
+    "bloque": "1",
+    "tema": "Constitución Española de 1978: derechos y deberes fundamentales"
+  },
+  {
+    "id": 102,
+    "enunciado": "Los derechos fundamentales se recogen principalmente en:",
+    "opciones": [
+      "Título I",
+      "Título II",
+      "Título III",
+      "Título VIII"
+    ],
+    "respuestaCorrecta": 0,
+    "bloque": "1",
+    "tema": "Constitución Española de 1978: derechos y deberes fundamentales"
+  },
+  {
+    "id": 103,
+    "enunciado": "¿Qué mayoría se requiere para reformar la Constitución por el procedimiento ordinario (art. 167 CE)?",
+    "opciones": [
+      "Mayoría simple",
+      "Tres quintos de cada Cámara",
+      "Dos tercios de cada Cámara",
+      "Unanimidad"
+    ],
+    "respuestaCorrecta": 1,
+    "bloque": "1",
+    "tema": "Constitución Española de 1978: derechos y deberes fundamentales"
+  },
+  {
+    "id": 104,
+    "enunciado": "El derecho a la tutela judicial efectiva está en el artículo:",
+    "opciones": [
+      "Art. 14",
+      "Art. 24",
+      "Art. 27",
+      "Art. 30"
+    ],
+    "respuestaCorrecta": 1,
+    "bloque": "1",
+    "tema": "Constitución Española de 1978: derechos y deberes fundamentales"
+  },
+  {
+    "id": 105,
+    "enunciado": "¿Cuál es el órgano que interpreta la Constitución con carácter supremo?",
+    "opciones": [
+      "Tribunal Supremo",
+      "Tribunal Constitucional",
+      "Consejo de Estado",
+      "Congreso de los Diputados"
+    ],
+    "respuestaCorrecta": 1,
+    "bloque": "1",
+    "tema": "Constitución Española de 1978: derechos y deberes fundamentales"
+  },
+  {
+    "id": 106,
+    "enunciado": "La igualdad ante la ley está en el artículo:",
+    "opciones": [
+      "Art. 9",
+      "Art. 14",
+      "Art. 16",
+      "Art. 20"
+    ],
+    "respuestaCorrecta": 1,
+    "bloque": "1",
+    "tema": "Constitución Española de 1978: derechos y deberes fundamentales"
+  },
+  {
+    "id": 107,
+    "enunciado": "¿Cuál de los siguientes es un derecho fundamental?",
+    "opciones": [
+      "Derecho a la vivienda",
+      "Libertad ideológica",
+      "Protección de la salud",
+      "Protección a la familia"
+    ],
+    "respuestaCorrecta": 1,
+    "bloque": "1",
+    "tema": "Constitución Española de 1978: derechos y deberes fundamentales"
+  },
+  {
+    "id": 108,
+    "enunciado": "El procedimiento agravado de reforma constitucional (art. 168 CE) exige:",
+    "opciones": [
+      "Mayoría simple y referéndum siempre",
+      "Dos tercios, disolución de Cortes y referéndum",
+      "Tres quintos sin referéndum",
+      "Unanimidad del Senado"
+    ],
+    "respuestaCorrecta": 1,
+    "bloque": "1",
+    "tema": "Constitución Española de 1978: derechos y deberes fundamentales"
+  },
+  {
+    "id": 109,
+    "enunciado": "La libertad de expresión está en el artículo:",
+    "opciones": [
+      "Art. 18",
+      "Art. 20",
+      "Art. 22",
+      "Art. 28"
+    ],
+    "respuestaCorrecta": 1,
+    "bloque": "1",
+    "tema": "Constitución Española de 1978: derechos y deberes fundamentales"
+  },
+  {
+    "id": 110,
+    "enunciado": "¿Qué artículo reconoce el derecho de reunión?",
+    "opciones": [
+      "Art. 21",
+      "Art. 23",
+      "Art. 25",
+      "Art. 29"
+    ],
+    "respuestaCorrecta": 0,
+    "bloque": "1",
+    "tema": "Constitución Española de 1978: derechos y deberes fundamentales"
+  },
+  {
+    "id": 201,
+    "enunciado": "¿Qué componente ejecuta las instrucciones de un programa?",
+    "opciones": [
+      "GPU",
+      "CPU",
+      "SSD",
+      "BIOS"
+    ],
+    "respuestaCorrecta": 1,
+    "bloque": "2",
+    "tema": "Arquitectura básica de ordenadores"
+  },
+  {
+    "id": 202,
+    "enunciado": "La memoria principal se refiere normalmente a:",
+    "opciones": [
+      "RAM",
+      "ROM",
+      "Cache L3",
+      "Disco duro"
+    ],
+    "respuestaCorrecta": 0,
+    "bloque": "2",
+    "tema": "Arquitectura básica de ordenadores"
+  },
+  {
+    "id": 203,
+    "enunciado": "¿Qué almacén es más rápido en general?",
+    "opciones": [
+      "SSD NVMe",
+      "HDD",
+      "Cinta magnética",
+      "DVD"
+    ],
+    "respuestaCorrecta": 0,
+    "bloque": "2",
+    "tema": "Arquitectura básica de ordenadores"
+  },
+  {
+    "id": 204,
+    "enunciado": "La caché de CPU se usa para:",
+    "opciones": [
+      "Almacenar backups",
+      "Reducir latencia de acceso a datos/instrucciones",
+      "Conectar periféricos",
+      "Sustituir la RAM"
+    ],
+    "respuestaCorrecta": 1,
+    "bloque": "2",
+    "tema": "Arquitectura básica de ordenadores"
+  },
+  {
+    "id": 205,
+    "enunciado": "La BIOS/UEFI se ejecuta:",
+    "opciones": [
+      "Después del sistema operativo",
+      "Al arrancar el equipo",
+      "Solo cuando hay internet",
+      "En el navegador"
+    ],
+    "respuestaCorrecta": 1,
+    "bloque": "2",
+    "tema": "Arquitectura básica de ordenadores"
+  },
+  {
+    "id": 206,
+    "enunciado": "¿Qué bus conecta CPU con memoria y periféricos?",
+    "opciones": [
+      "PCIe",
+      "Bus del sistema",
+      "USB",
+      "HDMI"
+    ],
+    "respuestaCorrecta": 1,
+    "bloque": "2",
+    "tema": "Arquitectura básica de ordenadores"
+  },
+  {
+    "id": 207,
+    "enunciado": "Un bit puede valer:",
+    "opciones": [
+      "0 o 1",
+      "0 a 9",
+      "A o B",
+      "Solo 1"
+    ],
+    "respuestaCorrecta": 0,
+    "bloque": "2",
+    "tema": "Arquitectura básica de ordenadores"
+  },
+  {
+    "id": 208,
+    "enunciado": "La unidad aritmético-lógica (ALU) pertenece a:",
+    "opciones": [
+      "CPU",
+      "RAM",
+      "SSD",
+      "Fuente de alimentación"
+    ],
+    "respuestaCorrecta": 0,
+    "bloque": "2",
+    "tema": "Arquitectura básica de ordenadores"
+  },
+  {
+    "id": 209,
+    "enunciado": "El paralelismo a nivel de instrucción se asocia con:",
+    "opciones": [
+      "Pipeline",
+      "RAID",
+      "DNS",
+      "DHCP"
+    ],
+    "respuestaCorrecta": 0,
+    "bloque": "2",
+    "tema": "Arquitectura básica de ordenadores"
+  },
+  {
+    "id": 210,
+    "enunciado": "¿Qué memoria es volátil?",
+    "opciones": [
+      "ROM",
+      "RAM",
+      "Flash",
+      "SSD"
+    ],
+    "respuestaCorrecta": 1,
+    "bloque": "2",
+    "tema": "Arquitectura básica de ordenadores"
+  },
+  {
+    "id": 301,
+    "enunciado": "¿Qué forma normal reduce dependencias parciales en claves compuestas?",
+    "opciones": [
+      "1FN",
+      "2FN",
+      "3FN",
+      "BCNF"
+    ],
+    "respuestaCorrecta": 1,
+    "bloque": "3",
+    "tema": "Modelado relacional y normalización"
+  },
+  {
+    "id": 302,
+    "enunciado": "Una clave primaria sirve para:",
+    "opciones": [
+      "Permitir nulos",
+      "Identificar unívocamente una fila",
+      "Duplicar datos",
+      "Evitar índices"
+    ],
+    "respuestaCorrecta": 1,
+    "bloque": "3",
+    "tema": "Modelado relacional y normalización"
+  },
+  {
+    "id": 303,
+    "enunciado": "¿Cuál es el objetivo principal de la normalización?",
+    "opciones": [
+      "Aumentar redundancia",
+      "Reducir anomalías de inserción/actualización/borrado",
+      "Evitar claves",
+      "Hacer más lenta la BD"
+    ],
+    "respuestaCorrecta": 1,
+    "bloque": "3",
+    "tema": "Modelado relacional y normalización"
+  },
+  {
+    "id": 304,
+    "enunciado": "Una relación N:M se implementa típicamente con:",
+    "opciones": [
+      "Una sola tabla",
+      "Tabla intermedia con FKs",
+      "Trigger obligatorio",
+      "Índice clustered"
+    ],
+    "respuestaCorrecta": 1,
+    "bloque": "3",
+    "tema": "Modelado relacional y normalización"
+  },
+  {
+    "id": 305,
+    "enunciado": "¿Qué constraint asegura unicidad en una columna?",
+    "opciones": [
+      "CHECK",
+      "UNIQUE",
+      "DEFAULT",
+      "FOREIGN KEY"
+    ],
+    "respuestaCorrecta": 1,
+    "bloque": "3",
+    "tema": "Modelado relacional y normalización"
+  },
+  {
+    "id": 306,
+    "enunciado": "Un índice ayuda principalmente a:",
+    "opciones": [
+      "Acelerar búsquedas y joins",
+      "Aumentar el tamaño del log siempre",
+      "Eliminar necesidad de claves",
+      "Evitar bloqueos"
+    ],
+    "respuestaCorrecta": 0,
+    "bloque": "3",
+    "tema": "Modelado relacional y normalización"
+  },
+  {
+    "id": 307,
+    "enunciado": "La integridad referencial se garantiza con:",
+    "opciones": [
+      "FOREIGN KEY",
+      "DEFAULT",
+      "VIEW",
+      "IDENTITY"
+    ],
+    "respuestaCorrecta": 0,
+    "bloque": "3",
+    "tema": "Modelado relacional y normalización"
+  },
+  {
+    "id": 308,
+    "enunciado": "¿Qué hace un CHECK constraint?",
+    "opciones": [
+      "Obliga a que un valor cumpla una condición",
+      "Crea un índice",
+      "Borra filas automáticamente",
+      "Permite duplicados"
+    ],
+    "respuestaCorrecta": 0,
+    "bloque": "3",
+    "tema": "Modelado relacional y normalización"
+  },
+  {
+    "id": 309,
+    "enunciado": "Una transacción sirve para:",
+    "opciones": [
+      "Ejecutar SELECT más rápido",
+      "Garantizar atomicidad de operaciones",
+      "Evitar claves foráneas",
+      "Cambiar la collation"
+    ],
+    "respuestaCorrecta": 1,
+    "bloque": "3",
+    "tema": "Modelado relacional y normalización"
+  },
+  {
+    "id": 310,
+    "enunciado": "Un índice compuesto se recomienda cuando:",
+    "opciones": [
+      "Siempre, sin analizar queries",
+      "Filtras por varias columnas en conjunto",
+      "Nunca",
+      "Solo para columnas NVARCHAR"
+    ],
+    "respuestaCorrecta": 1,
+    "bloque": "3",
+    "tema": "Modelado relacional y normalización"
+  }
+]

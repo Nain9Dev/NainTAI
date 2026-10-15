@@ -1,0 +1,364 @@
+[
+  {
+    "id": 101,
+    "topicId": 1,
+    "difficulty": 1,
+    "statement": "¿Qué norma es la norma suprema del ordenamiento jurídico español?",
+    "options": [
+      { "id": 1011, "sortOrder": 1, "text": "El Código Civil" },
+      { "id": 1012, "sortOrder": 2, "text": "La Constitución" },
+      { "id": 1013, "sortOrder": 3, "text": "Una ley orgánica" },
+      { "id": 1014, "sortOrder": 4, "text": "Un reglamento" }
+    ]
+  },
+  {
+    "id": 102,
+    "topicId": 1,
+    "difficulty": 1,
+    "statement": "Los derechos fundamentales se recogen principalmente en:",
+    "options": [
+      { "id": 1021, "sortOrder": 1, "text": "Título I" },
+      { "id": 1022, "sortOrder": 2, "text": "Título II" },
+      { "id": 1023, "sortOrder": 3, "text": "Título III" },
+      { "id": 1024, "sortOrder": 4, "text": "Título VIII" }
+    ]
+  },
+  {
+    "id": 103,
+    "topicId": 1,
+    "difficulty": 2,
+    "statement": "¿Qué mayoría se requiere para reformar la Constitución por el procedimiento ordinario (art. 167 CE)?",
+    "options": [
+      { "id": 1031, "sortOrder": 1, "text": "Mayoría simple" },
+      { "id": 1032, "sortOrder": 2, "text": "Tres quintos de cada Cámara" },
+      { "id": 1033, "sortOrder": 3, "text": "Dos tercios de cada Cámara" },
+      { "id": 1034, "sortOrder": 4, "text": "Unanimidad" }
+    ]
+  },
+  {
+    "id": 104,
+    "topicId": 1,
+    "difficulty": 1,
+    "statement": "El derecho a la tutela judicial efectiva está en el artículo:",
+    "options": [
+      { "id": 1041, "sortOrder": 1, "text": "Art. 14" },
+      { "id": 1042, "sortOrder": 2, "text": "Art. 24" },
+      { "id": 1043, "sortOrder": 3, "text": "Art. 27" },
+      { "id": 1044, "sortOrder": 4, "text": "Art. 30" }
+    ]
+  },
+  {
+    "id": 105,
+    "topicId": 1,
+    "difficulty": 2,
+    "statement": "¿Cuál es el órgano que interpreta la Constitución con carácter supremo?",
+    "options": [
+      { "id": 1051, "sortOrder": 1, "text": "Tribunal Supremo" },
+      { "id": 1052, "sortOrder": 2, "text": "Tribunal Constitucional" },
+      { "id": 1053, "sortOrder": 3, "text": "Consejo de Estado" },
+      { "id": 1054, "sortOrder": 4, "text": "Congreso de los Diputados" }
+    ]
+  },
+  {
+    "id": 106,
+    "topicId": 1,
+    "difficulty": 1,
+    "statement": "La igualdad ante la ley está en el artículo:",
+    "options": [
+      { "id": 1061, "sortOrder": 1, "text": "Art. 9" },
+      { "id": 1062, "sortOrder": 2, "text": "Art. 14" },
+      { "id": 1063, "sortOrder": 3, "text": "Art. 16" },
+      { "id": 1064, "sortOrder": 4, "text": "Art. 20" }
+    ]
+  },
+  {
+    "id": 107,
+    "topicId": 1,
+    "difficulty": 2,
+    "statement": "¿Cuál de los siguientes es un derecho fundamental?",
+    "options": [
+      { "id": 1071, "sortOrder": 1, "text": "Derecho a la vivienda" },
+      { "id": 1072, "sortOrder": 2, "text": "Libertad ideológica" },
+      { "id": 1073, "sortOrder": 3, "text": "Protección de la salud" },
+      { "id": 1074, "sortOrder": 4, "text": "Protección a la familia" }
+    ]
+  },
+  {
+    "id": 108,
+    "topicId": 1,
+    "difficulty": 3,
+    "statement": "El procedimiento agravado de reforma constitucional (art. 168 CE) exige:",
+    "options": [
+      { "id": 1081, "sortOrder": 1, "text": "Mayoría simple y referéndum siempre" },
+      { "id": 1082, "sortOrder": 2, "text": "Dos tercios, disolución de Cortes y referéndum" },
+      { "id": 1083, "sortOrder": 3, "text": "Tres quintos sin referéndum" },
+      { "id": 1084, "sortOrder": 4, "text": "Unanimidad del Senado" }
+    ]
+  },
+  {
+    "id": 109,
+    "topicId": 1,
+    "difficulty": 1,
+    "statement": "La libertad de expresión está en el artículo:",
+    "options": [
+      { "id": 1091, "sortOrder": 1, "text": "Art. 18" },
+      { "id": 1092, "sortOrder": 2, "text": "Art. 20" },
+      { "id": 1093, "sortOrder": 3, "text": "Art. 22" },
+      { "id": 1094, "sortOrder": 4, "text": "Art. 28" }
+    ]
+  },
+  {
+    "id": 110,
+    "topicId": 1,
+    "difficulty": 2,
+    "statement": "¿Qué artículo reconoce el derecho de reunión?",
+    "options": [
+      { "id": 1101, "sortOrder": 1, "text": "Art. 21" },
+      { "id": 1102, "sortOrder": 2, "text": "Art. 23" },
+      { "id": 1103, "sortOrder": 3, "text": "Art. 25" },
+      { "id": 1104, "sortOrder": 4, "text": "Art. 29" }
+    ]
+  },
+
+  {
+    "id": 201,
+    "topicId": 2,
+    "difficulty": 1,
+    "statement": "¿Qué componente ejecuta las instrucciones de un programa?",
+    "options": [
+      { "id": 2011, "sortOrder": 1, "text": "GPU" },
+      { "id": 2012, "sortOrder": 2, "text": "CPU" },
+      { "id": 2013, "sortOrder": 3, "text": "SSD" },
+      { "id": 2014, "sortOrder": 4, "text": "BIOS" }
+    ]
+  },
+  {
+    "id": 202,
+    "topicId": 2,
+    "difficulty": 1,
+    "statement": "La memoria principal se refiere normalmente a:",
+    "options": [
+      { "id": 2021, "sortOrder": 1, "text": "RAM" },
+      { "id": 2022, "sortOrder": 2, "text": "ROM" },
+      { "id": 2023, "sortOrder": 3, "text": "Cache L3" },
+      { "id": 2024, "sortOrder": 4, "text": "Disco duro" }
+    ]
+  },
+  {
+    "id": 203,
+    "topicId": 2,
+    "difficulty": 2,
+    "statement": "¿Qué almacén es más rápido en general?",
+    "options": [
+      { "id": 2031, "sortOrder": 1, "text": "SSD NVMe" },
+      { "id": 2032, "sortOrder": 2, "text": "HDD" },
+      { "id": 2033, "sortOrder": 3, "text": "Cinta magnética" },
+      { "id": 2034, "sortOrder": 4, "text": "DVD" }
+    ]
+  },
+  {
+    "id": 204,
+    "topicId": 2,
+    "difficulty": 2,
+    "statement": "La caché de CPU se usa para:",
+    "options": [
+      { "id": 2041, "sortOrder": 1, "text": "Almacenar backups" },
+      { "id": 2042, "sortOrder": 2, "text": "Reducir latencia de acceso a datos/instrucciones" },
+      { "id": 2043, "sortOrder": 3, "text": "Conectar periféricos" },
+      { "id": 2044, "sortOrder": 4, "text": "Sustituir la RAM" }
+    ]
+  },
+  {
+    "id": 205,
+    "topicId": 2,
+    "difficulty": 1,
+    "statement": "La BIOS/UEFI se ejecuta:",
+    "options": [
+      { "id": 2051, "sortOrder": 1, "text": "Después del sistema operativo" },
+      { "id": 2052, "sortOrder": 2, "text": "Al arrancar el equipo" },
+      { "id": 2053, "sortOrder": 3, "text": "Solo cuando hay internet" },
+      { "id": 2054, "sortOrder": 4, "text": "En el navegador" }
+    ]
+  },
+  {
+    "id": 206,
+    "topicId": 2,
+    "difficulty": 2,
+    "statement": "¿Qué bus conecta CPU con memoria y periféricos?",
+    "options": [
+      { "id": 2061, "sortOrder": 1, "text": "PCIe" },
+      { "id": 2062, "sortOrder": 2, "text": "Bus del sistema" },
+      { "id": 2063, "sortOrder": 3, "text": "USB" },
+      { "id": 2064, "sortOrder": 4, "text": "HDMI" }
+    ]
+  },
+  {
+    "id": 207,
+    "topicId": 2,
+    "difficulty": 1,
+    "statement": "Un bit puede valer:",
+    "options": [
+      { "id": 2071, "sortOrder": 1, "text": "0 o 1" },
+      { "id": 2072, "sortOrder": 2, "text": "0 a 9" },
+      { "id": 2073, "sortOrder": 3, "text": "A o B" },
+      { "id": 2074, "sortOrder": 4, "text": "Solo 1" }
+    ]
+  },
+  {
+    "id": 208,
+    "topicId": 2,
+    "difficulty": 2,
+    "statement": "La unidad aritmético-lógica (ALU) pertenece a:",
+    "options": [
+      { "id": 2081, "sortOrder": 1, "text": "CPU" },
+      { "id": 2082, "sortOrder": 2, "text": "RAM" },
+      { "id": 2083, "sortOrder": 3, "text": "SSD" },
+      { "id": 2084, "sortOrder": 4, "text": "Fuente de alimentación" }
+    ]
+  },
+  {
+    "id": 209,
+    "topicId": 2,
+    "difficulty": 3,
+    "statement": "El paralelismo a nivel de instrucción se asocia con:",
+    "options": [
+      { "id": 2091, "sortOrder": 1, "text": "Pipeline" },
+      { "id": 2092, "sortOrder": 2, "text": "RAID" },
+      { "id": 2093, "sortOrder": 3, "text": "DNS" },
+      { "id": 2094, "sortOrder": 4, "text": "DHCP" }
+    ]
+  },
+  {
+    "id": 210,
+    "topicId": 2,
+    "difficulty": 2,
+    "statement": "¿Qué memoria es volátil?",
+    "options": [
+      { "id": 2101, "sortOrder": 1, "text": "ROM" },
+      { "id": 2102, "sortOrder": 2, "text": "RAM" },
+      { "id": 2103, "sortOrder": 3, "text": "Flash" },
+      { "id": 2104, "sortOrder": 4, "text": "SSD" }
+    ]
+  },
+
+  {
+    "id": 301,
+    "topicId": 3,
+    "difficulty": 2,
+    "statement": "¿Qué forma normal reduce dependencias parciales en claves compuestas?",
+    "options": [
+      { "id": 3011, "sortOrder": 1, "text": "1FN" },
+      { "id": 3012, "sortOrder": 2, "text": "2FN" },
+      { "id": 3013, "sortOrder": 3, "text": "3FN" },
+      { "id": 3014, "sortOrder": 4, "text": "BCNF" }
+    ]
+  },
+  {
+    "id": 302,
+    "topicId": 3,
+    "difficulty": 2,
+    "statement": "Una clave primaria sirve para:",
+    "options": [
+      { "id": 3021, "sortOrder": 1, "text": "Permitir nulos" },
+      { "id": 3022, "sortOrder": 2, "text": "Identificar unívocamente una fila" },
+      { "id": 3023, "sortOrder": 3, "text": "Duplicar datos" },
+      { "id": 3024, "sortOrder": 4, "text": "Evitar índices" }
+    ]
+  },
+  {
+    "id": 303,
+    "topicId": 3,
+    "difficulty": 3,
+    "statement": "¿Cuál es el objetivo principal de la normalización?",
+    "options": [
+      { "id": 3031, "sortOrder": 1, "text": "Aumentar redundancia" },
+      { "id": 3032, "sortOrder": 2, "text": "Reducir anomalías de inserción/actualización/borrado" },
+      { "id": 3033, "sortOrder": 3, "text": "Evitar claves" },
+      { "id": 3034, "sortOrder": 4, "text": "Hacer más lenta la BD" }
+    ]
+  },
+  {
+    "id": 304,
+    "topicId": 3,
+    "difficulty": 2,
+    "statement": "Una relación N:M se implementa típicamente con:",
+    "options": [
+      { "id": 3041, "sortOrder": 1, "text": "Una sola tabla" },
+      { "id": 3042, "sortOrder": 2, "text": "Tabla intermedia con FKs" },
+      { "id": 3043, "sortOrder": 3, "text": "Trigger obligatorio" },
+      { "id": 3044, "sortOrder": 4, "text": "Índice clustered" }
+    ]
+  },
+  {
+    "id": 305,
+    "topicId": 3,
+    "difficulty": 2,
+    "statement": "¿Qué constraint asegura unicidad en una columna?",
+    "options": [
+      { "id": 3051, "sortOrder": 1, "text": "CHECK" },
+      { "id": 3052, "sortOrder": 2, "text": "UNIQUE" },
+      { "id": 3053, "sortOrder": 3, "text": "DEFAULT" },
+      { "id": 3054, "sortOrder": 4, "text": "FOREIGN KEY" }
+    ]
+  },
+  {
+    "id": 306,
+    "topicId": 3,
+    "difficulty": 3,
+    "statement": "Un índice ayuda principalmente a:",
+    "options": [
+      { "id": 3061, "sortOrder": 1, "text": "Acelerar búsquedas y joins" },
+      { "id": 3062, "sortOrder": 2, "text": "Aumentar el tamaño del log siempre" },
+      { "id": 3063, "sortOrder": 3, "text": "Eliminar necesidad de claves" },
+      { "id": 3064, "sortOrder": 4, "text": "Evitar bloqueos" }
+    ]
+  },
+  {
+    "id": 307,
+    "topicId": 3,
+    "difficulty": 2,
+    "statement": "La integridad referencial se garantiza con:",
+    "options": [
+      { "id": 3071, "sortOrder": 1, "text": "FOREIGN KEY" },
+      { "id": 3072, "sortOrder": 2, "text": "DEFAULT" },
+      { "id": 3073, "sortOrder": 3, "text": "VIEW" },
+      { "id": 3074, "sortOrder": 4, "text": "IDENTITY" }
+    ]
+  },
+  {
+    "id": 308,
+    "topicId": 3,
+    "difficulty": 3,
+    "statement": "¿Qué hace un CHECK constraint?",
+    "options": [
+      { "id": 3081, "sortOrder": 1, "text": "Obliga a que un valor cumpla una condición" },
+      { "id": 3082, "sortOrder": 2, "text": "Crea un índice" },
+      { "id": 3083, "sortOrder": 3, "text": "Borra filas automáticamente" },
+      { "id": 3084, "sortOrder": 4, "text": "Permite duplicados" }
+    ]
+  },
+  {
+    "id": 309,
+    "topicId": 3,
+    "difficulty": 2,
+    "statement": "Una transacción sirve para:",
+    "options": [
+      { "id": 3091, "sortOrder": 1, "text": "Ejecutar SELECT más rápido" },
+      { "id": 3092, "sortOrder": 2, "text": "Garantizar atomicidad de operaciones" },
+      { "id": 3093, "sortOrder": 3, "text": "Evitar claves foráneas" },
+      { "id": 3094, "sortOrder": 4, "text": "Cambiar la collation" }
+    ]
+  },
+  {
+    "id": 310,
+    "topicId": 3,
+    "difficulty": 3,
+    "statement": "Un índice compuesto se recomienda cuando:",
+    "options": [
+      { "id": 3101, "sortOrder": 1, "text": "Siempre, sin analizar queries" },
+      { "id": 3102, "sortOrder": 2, "text": "Filtras por varias columnas en conjunto" },
+      { "id": 3103, "sortOrder": 3, "text": "Nunca" },
+      { "id": 3104, "sortOrder": 4, "text": "Solo para columnas NVARCHAR" }
+    ]
+  }
+]

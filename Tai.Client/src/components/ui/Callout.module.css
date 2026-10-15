@@ -1,0 +1,69 @@
+/*
+ * Inline notices. Each tone carries a border and an icon as well as a hue, so the meaning
+ * survives a colour vision deficiency and a greyscale print.
+ */
+
+.callout {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding: 0.9rem 1.1rem;
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-small);
+  background: var(--color-neutral-soft);
+  color: var(--color-text-soft);
+  font-size: 0.92rem;
+  line-height: 1.55;
+}
+
+.icon {
+  flex-shrink: 0;
+  margin-top: 0.15rem;
+}
+
+.content {
+  min-width: 0;
+}
+
+.title {
+  display: block;
+  margin-bottom: 0.2rem;
+  font-weight: 700;
+}
+
+.info {
+  border-color: rgba(96, 165, 250, 0.35);
+  background: rgba(96, 165, 250, 0.1);
+  color: var(--color-text);
+}
+
+.info .icon {
+  color: var(--color-primary-strong);
+}
+
+.success {
+  border-color: var(--color-success-line);
+  background: var(--color-success-soft);
+}
+
+.success .icon {
+  color: var(--color-success);
+}
+
+.warning {
+  border-color: var(--color-warning-line);
+  background: var(--color-warning-soft);
+}
+
+.warning .icon {
+  color: var(--color-warning);
+}
+
+.danger {
+  border-color: var(--color-danger-line);
+  background: var(--color-danger-soft);
+}
+
+.danger .icon {
+  color: var(--color-danger);
+}

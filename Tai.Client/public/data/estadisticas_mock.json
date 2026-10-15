@@ -1,0 +1,11 @@
+{
+  "totalPreguntas": 30,
+  "aciertos": 15,
+  "fallos": 5,
+  "notaMedia": 6.8,
+  "progresoPorBloque": {
+    "1": 80,
+    "2": 65,
+    "3": 90
+  }
+}

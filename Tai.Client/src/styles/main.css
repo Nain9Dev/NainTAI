@@ -1,0 +1,296 @@
+@import './fonts.css';
+@import './tokens.css';
+
+/*
+ * Base layer, matching naindev.com: the ambient gradient field, the grid overlay and the
+ * pointer-tracking glow are what make the two properties read as the same product.
+ */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 7rem;
+}
+
+body {
+  margin: 0;
+  min-width: 20rem;
+  overflow-x: hidden;
+  background:
+    radial-gradient(circle at 78% 8%, rgba(98, 119, 231, 0.18), transparent 30rem),
+    radial-gradient(circle at 12% 32%, rgba(240, 164, 93, 0.12), transparent 28rem),
+    radial-gradient(circle at 50% 80%, rgba(98, 119, 231, 0.15), transparent 35rem),
+    var(--color-background);
+  background-size: 200% 200%;
+  color: var(--color-text);
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  line-height: 1.65;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  body {
+    animation: ambient-morph 24s ease-in-out infinite alternate;
+  }
+}
+
+@keyframes ambient-morph {
+  0% {
+    background-position: 0% 0%;
+  }
+  33% {
+    background-position: 100% 0%;
+  }
+  66% {
+    background-position: 100% 100%;
+  }
+  100% {
+    background-position: 0% 100%;
+  }
+}
+
+/* Faint engineering grid, faded out towards the footer. */
+body::before {
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.018) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.018) 1px, transparent 1px);
+  background-size: 4rem 4rem;
+  content: '';
+  mask-image: linear-gradient(to bottom, black, transparent 82%);
+  pointer-events: none;
+}
+
+/* Glow that follows the pointer. Purely decorative, so it is skipped when motion is reduced. */
+@media (prefers-reduced-motion: no-preference) {
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    background: radial-gradient(
+      circle 600px at var(--mouse-x, 50%) var(--mouse-y, 50%),
+      var(--color-primary-strong),
+      transparent 80%
+    );
+    opacity: var(--glow-opacity);
+    mix-blend-mode: screen;
+    pointer-events: none;
+  }
+}
+
+#root {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+a {
+  color: inherit;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+/*
+ * A visible focus ring on every interactive element. Keyboard navigation is the primary
+ * input for an exam: the candidate is answering, not pointing.
+ */
+:focus-visible {
+  outline: 3px solid var(--color-secondary);
+  outline-offset: 4px;
+  border-radius: 4px;
+}
+
+::selection {
+  background: var(--color-primary);
+  color: var(--color-primary-ink);
+}
+
+h1,
+h2,
+h3,
+h4,
+p {
+  margin-top: 0;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-display);
+  color: var(--color-text);
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+}
+
+h1 {
+  margin-bottom: 1.5rem;
+  font-size: clamp(2.4rem, 5vw, 3.6rem);
+  font-weight: 800;
+}
+
+h2 {
+  margin-bottom: 1rem;
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+  font-weight: 700;
+}
+
+h3 {
+  margin-bottom: 0.75rem;
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+/* Layout ------------------------------------------------------------------ */
+
+.shell {
+  width: min(calc(100% - 3rem), var(--shell-width));
+  margin-inline: auto;
+}
+
+.stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+.metric-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr));
+  gap: var(--space-4);
+}
+
+/* Shared type ------------------------------------------------------------- */
+
+/* Monospaced uppercase label above a section. Straight from the portfolio. */
+.eyebrow {
+  display: block;
+  margin-bottom: 0.75rem;
+  color: var(--color-secondary);
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+}
+
+.title-accent {
+  background: linear-gradient(115deg, var(--color-primary-strong), var(--color-secondary-strong));
+  background-clip: text;
+  color: transparent;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.muted {
+  color: var(--color-text-muted);
+}
+
+.lead {
+  max-width: 46rem;
+  color: var(--color-text-muted);
+  font-size: clamp(1rem, 1.6vw, 1.15rem);
+}
+
+/* Forms ------------------------------------------------------------------- */
+
+input[type='text'],
+input[type='email'],
+input[type='password'],
+input[type='number'],
+textarea,
+select {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-small);
+  background-color: rgba(9, 10, 15, 0.6);
+  color: var(--color-text);
+  outline: none;
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+}
+
+::placeholder {
+  color: var(--color-text-muted);
+  opacity: 0.7;
+}
+
+/* Screen-reader-only text that still receives focus. */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.skip-link {
+  position: fixed;
+  top: 1rem;
+  left: 1rem;
+  z-index: 100;
+  padding: 0.75rem 1rem;
+  border-radius: var(--radius-small);
+  background: var(--color-secondary);
+  color: var(--color-primary-ink);
+  font-weight: 700;
+  text-decoration: none;
+  transform: translateY(-180%);
+  transition: transform var(--transition-fast);
+}
+
+.skip-link:focus {
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

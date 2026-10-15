@@ -1,0 +1,4 @@
+.main {
+  flex: 1;
+  padding-block: clamp(2.5rem, 5vw, 4rem);
+}

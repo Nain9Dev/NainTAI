@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="60 60 280 280" width="100%" height="100%">
+  <defs>
+    <mask id="corteN2">
+      <rect x="0" y="0" width="1600" height="400" fill="white"></rect>
+      <polygon points="60,60 160,60 340,340 240,340" fill="none" stroke="black" stroke-width="20" stroke-linejoin="miter"></polygon>
+    </mask>
+  </defs>
+  <g mask="url(#corteN2)">
+    <rect x="60" y="60" width="100" height="280" fill="#0047AB" rx="4"></rect>
+    <rect x="240" y="60" width="100" height="280" fill="#0047AB" rx="4"></rect>
+  </g>
+  <polygon points="60,60 160,60 340,340 240,340" fill="#00BFFF" stroke-linejoin="miter"></polygon>
+</svg>

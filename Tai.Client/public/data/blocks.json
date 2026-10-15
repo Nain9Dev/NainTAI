@@ -1,0 +1,6 @@
+[
+  { "id": 1, "code": "I", "name": "Derecho y Administración electrónica" },
+  { "id": 2, "code": "II", "name": "Tecnología básica" },
+  { "id": 3, "code": "III", "name": "Desarrollo de sistemas" },
+  { "id": 4, "code": "IV", "name": "Sistemas y comunicaciones" }
+]

@@ -1,0 +1,108 @@
+.dashboard {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.blocks {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.block {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.blockHeader {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.blockName {
+  font-weight: 600;
+}
+
+.blockStats {
+  color: var(--color-text-muted);
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.bar {
+  height: 8px;
+  overflow: hidden;
+  border-radius: var(--radius-pill);
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.barFill {
+  height: 100%;
+  border-radius: var(--radius-pill);
+  transition: width var(--transition-base);
+}
+
+.barStrong {
+  background: linear-gradient(90deg, var(--color-success), #6ee7b7);
+}
+
+.barMedium {
+  background: linear-gradient(90deg, var(--color-warning), #fcd34d);
+}
+
+.barWeak {
+  background: linear-gradient(90deg, var(--color-danger), #fca5a5);
+}
+
+/* Trend ------------------------------------------------------------------ */
+
+.trend {
+  display: flex;
+  align-items: flex-end;
+  gap: 0.4rem;
+  height: 8rem;
+  padding-top: 0.5rem;
+}
+
+.trendBar {
+  position: relative;
+  flex: 1;
+  min-width: 0.75rem;
+  border-radius: var(--radius-pill) var(--radius-pill) 0 0;
+  background: linear-gradient(180deg, var(--color-primary-strong), var(--color-primary));
+  transition: height var(--transition-base);
+}
+
+.trendBarFail {
+  background: linear-gradient(180deg, var(--color-danger), rgba(248, 113, 113, 0.6));
+}
+
+.trendAxis {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 0.5rem;
+  color: var(--color-text-muted);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+}
+
+.empty {
+  padding: 2.5rem 1rem;
+  text-align: center;
+  color: var(--color-text-muted);
+}
+
+.emptyTitle {
+  display: block;
+  margin-bottom: 0.4rem;
+  color: var(--color-text);
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 600;
+}
