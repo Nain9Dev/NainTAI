@@ -1,12 +1,21 @@
-# Sistema Oposiciones TAI — Full-Stack Exam Simulator
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/banner-dark.svg">
+  <source media="(prefers-color-scheme: light)" srcset="docs/assets/banner-light.svg">
+  <img src="docs/assets/banner-dark.svg" alt="NainTAI - Full-Stack Civil Service Exam Simulator" width="100%">
+</picture>
 
-[![.NET](https://img.shields.io/badge/.NET-10.0-512BD4?logo=dotnet&logoColor=white)](https://dotnet.microsoft.com/)
-[![React](https://img.shields.io/badge/React-19-61DAFB?logo=react&logoColor=black)](https://react.dev/)
-[![TypeScript](https://img.shields.io/badge/TypeScript-6-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
-[![Architecture](https://img.shields.io/badge/Architecture-Clean%20%2B%20Dapper-brightgreen)](docs/20-architecture.md)
-[![Database](https://img.shields.io/badge/Database-PostgreSQL%20%2B%20plpgsql-336791?logo=postgresql&logoColor=white)](docs/21-data-model.md)
-[![Tests](https://img.shields.io/badge/Tests-180%20passing-success)](docs/50-traceability.md)
-[![Method](https://img.shields.io/badge/Method-Spec%20Driven%20Development-0A7EA4)](docs/README.md)
+<div align="center">
+
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-tai.naindev.com-10B981?style=flat-square&logo=google-chrome&logoColor=white)](https://tai.naindev.com/)
+[![.NET](https://img.shields.io/badge/.NET-10.0-512BD4?style=flat-square&logo=dotnet&logoColor=white)](https://dotnet.microsoft.com/)
+[![Architecture Tests](https://img.shields.io/badge/Architecture%20Tests-NetArchTest%20enforced-80FF00?style=flat-square&logo=checkmarx&logoColor=black)](tests/Oposiciones.UnitTests/Architecture/ArchitectureTests.cs)
+[![React](https://img.shields.io/badge/React-19-61DAFB?style=flat-square&logo=react&logoColor=black)](https://react.dev/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.7-3178C6?style=flat-square&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![Database](https://img.shields.io/badge/Database-PostgreSQL%20%2B%20plpgsql-336791?style=flat-square&logo=postgresql&logoColor=white)](docs/21-data-model.md)
+[![Tests Passing](https://img.shields.io/badge/Tests-184%20passing-80FF00?style=flat-square&logo=checkmarx&logoColor=black)](docs/50-traceability.md)
+[![Architecture](https://img.shields.io/badge/Architecture-Clean%20%2B%20Dapper-brightgreen?style=flat-square)](docs/20-architecture.md)
+
+</div>
 
 Full-stack civil service exam simulator platform aimed at the Spanish **TAI** examination (Técnico Auxiliar de Informática, INAP). It serves a question bank drawn from the official syllabus, marks attempts under the official scale, provides offline resilience via IndexedDB, and reports actionable performance analytics.
 
