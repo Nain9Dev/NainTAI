@@ -7,6 +7,7 @@
 <div align="center">
 
 [![Live Demo](https://img.shields.io/badge/Live%20Demo-tai.naindev.com-10B981?style=flat-square&logo=google-chrome&logoColor=white)](https://tai.naindev.com/)
+[![CI](https://github.com/Nain9Dev/NainTAI/actions/workflows/ci.yml/badge.svg)](https://github.com/Nain9Dev/NainTAI/actions/workflows/ci.yml)
 [![.NET](https://img.shields.io/badge/.NET-10.0-512BD4?style=flat-square&logo=dotnet&logoColor=white)](https://dotnet.microsoft.com/)
 [![Architecture Tests](https://img.shields.io/badge/Architecture%20Tests-NetArchTest%20enforced-80FF00?style=flat-square&logo=checkmarx&logoColor=black)](tests/Oposiciones.UnitTests/Architecture/ArchitectureTests.cs)
 [![React](https://img.shields.io/badge/React-19-61DAFB?style=flat-square&logo=react&logoColor=black)](https://react.dev/)

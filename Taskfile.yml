@@ -1,0 +1,23 @@
+version: '3'
+
+tasks:
+  dev-backend:
+    desc: "Start ASP.NET Core API with hot reload"
+    cmds:
+      - dotnet watch --project src/Oposiciones.Api run
+
+  dev-frontend:
+    desc: "Start React 19 Vite dev server"
+    cmds:
+      - npm --prefix Tai.Client run dev
+
+  test:
+    desc: "Execute .NET unit tests"
+    cmds:
+      - dotnet test src/Oposiciones.sln -c Release
+
+  build:
+    desc: "Build full stack solution"
+    cmds:
+      - dotnet build src/Oposiciones.sln -c Release
+      - npm --prefix Tai.Client run build
