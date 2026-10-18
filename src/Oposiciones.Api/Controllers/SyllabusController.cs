@@ -56,7 +56,7 @@ public class SyllabusController : ControllerBase
     public async Task<IActionResult> GetTopicsByBlock([FromQuery] int? blockId, CancellationToken cancellationToken)
     {
         var topics = await GetOrSetAsync(
-            TopicsCacheKeyPrefix + (blockId?.ToString() ?? "all"),
+            TopicsCacheKeyPrefix + (blockId?.ToString(System.Globalization.CultureInfo.InvariantCulture) ?? "all"),
             () => _syllabusRepository.GetTopicsByBlockAsync(blockId, cancellationToken),
             cancellationToken);
 

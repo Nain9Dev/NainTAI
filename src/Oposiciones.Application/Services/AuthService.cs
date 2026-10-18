@@ -179,7 +179,7 @@ public sealed class AuthService : IAuthService
 
         var claims = new[]
         {
-            new Claim(JwtRegisteredClaimNames.Sub, usuario.Id.ToString()),
+            new Claim(JwtRegisteredClaimNames.Sub, usuario.Id.ToString(System.Globalization.CultureInfo.InvariantCulture)),
             // jti identifica la sesion: el token CSRF se guarda por sesion y no por usuario,
             // de modo que iniciar sesion en un segundo dispositivo no invalida el primero.
             new Claim(JwtRegisteredClaimNames.Jti, sessionId),

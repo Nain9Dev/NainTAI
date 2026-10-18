@@ -1,0 +1,7 @@
+<Solution>
+  <Project Path="src/Oposiciones.Domain/Oposiciones.Domain.csproj" />
+  <Project Path="src/Oposiciones.Application/Oposiciones.Application.csproj" />
+  <Project Path="src/Oposiciones.Infrastructure/Oposiciones.Infrastructure.csproj" />
+  <Project Path="src/Oposiciones.Api/Oposiciones.Api.csproj" />
+  <Project Path="tests/Oposiciones.UnitTests/Oposiciones.UnitTests.csproj" />
+</Solution>
