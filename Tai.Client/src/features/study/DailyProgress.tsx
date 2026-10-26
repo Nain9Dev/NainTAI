@@ -1,32 +1,18 @@
-import { Flame, RotateCcw, Target, Zap } from 'lucide-react';
+import { Flame, RotateCcw, Target } from 'lucide-react';
 import { Card } from '../../components/ui/Card';
-import { Button } from '../../components/ui/Button';
-import {
-  useProgressionStore,
-  selectAnsweredToday,
-} from '../../store/useProgressionStore';
+import { ProgressRing } from '../../components/ui/ProgressRing';
+import { useProgressionStore, selectAnsweredToday } from '../../store/useProgressionStore';
 import { currentStreak, isStreakAtRisk } from '../../utils/streak';
 import styles from './DailyProgress.module.css';
 
-const RING_RADIUS = 42;
-const RING_CIRCUMFERENCE = 2 * Math.PI * RING_RADIUS;
-
-interface DailyProgressProps {
-  /** Starts a short session drawn from the questions most often missed. */
-  onReviewMistakes: (count: number) => void;
-  /** Starts a five-question round. */
-  onQuickRound: () => void;
-  isStarting: boolean;
-}
-
 /**
- * The panel that decides whether today becomes a study day.
+ * Today's goal and the streak, the two numbers that decide whether a session happens.
  *
- * Its job is to remove the two reasons a session does not happen: not knowing what to
- * practise, and not having the half hour a full exam takes. Both answers are one click
- * away — a five-question round, or the questions already known to be weak.
+ * The actions that used to sit under this panel moved to the action cards beside it: a
+ * goal panel that also owned three buttons was doing two jobs, and the buttons were the part a
+ * visitor needs to find first.
  */
-export function DailyProgress({ onReviewMistakes, onQuickRound, isStarting }: DailyProgressProps) {
+export function DailyProgress() {
   const streakState = useProgressionStore((state) => state.streak);
   const dailyGoal = useProgressionStore((state) => state.dailyGoal);
   const answeredToday = useProgressionStore(selectAnsweredToday);
@@ -41,34 +27,14 @@ export function DailyProgress({ onReviewMistakes, onQuickRound, isStarting }: Da
   return (
     <Card eyebrow="Hoy" className={styles.card}>
       <div className={styles.panel}>
-        <div className={`${styles.ring} ${goalMet ? styles.ringComplete : ''}`}>
-          <svg
-            className={styles.ringSvg}
-            viewBox="0 0 100 100"
-            role="img"
-            aria-label={`${answeredToday} de ${dailyGoal} preguntas hechas hoy`}
-          >
-            <defs>
-              <linearGradient id="daily-gradient" x1="0" y1="0" x2="1" y2="1">
-                <stop offset="0%" stopColor="var(--color-primary-strong)" />
-                <stop offset="100%" stopColor="var(--color-primary)" />
-              </linearGradient>
-            </defs>
-            <circle className={styles.ringTrack} cx="50" cy="50" r={RING_RADIUS} />
-            <circle
-              className={styles.ringFill}
-              cx="50"
-              cy="50"
-              r={RING_RADIUS}
-              strokeDasharray={`${progress * RING_CIRCUMFERENCE} ${RING_CIRCUMFERENCE}`}
-            />
-          </svg>
-
-          <span className={styles.ringLabel} aria-hidden="true">
-            <span className={styles.ringValue}>{answeredToday}</span>
-            <span className={styles.ringUnit}>de {dailyGoal}</span>
-          </span>
-        </div>
+        <ProgressRing
+          value={progress}
+          tone={goalMet ? 'success' : 'primary'}
+          label={`${answeredToday} de ${dailyGoal} preguntas hechas hoy`}
+          center={answeredToday}
+          caption={`de ${dailyGoal}`}
+          size={7.5}
+        />
 
         <div className={styles.body}>
           <h2 className={styles.headline}>{headline(goalMet, remaining, streak)}</h2>
@@ -94,29 +60,6 @@ export function DailyProgress({ onReviewMistakes, onQuickRound, isStarting }: Da
                 <RotateCcw size={14} aria-hidden="true" />
                 {reviewCount} por repasar
               </span>
-            )}
-          </div>
-
-          <div className={styles.actions}>
-            <Button
-              size="small"
-              onClick={onQuickRound}
-              disabled={isStarting}
-              icon={<Zap size={15} aria-hidden="true" />}
-            >
-              Ronda rápida · 5 preguntas
-            </Button>
-
-            {reviewCount > 0 && (
-              <Button
-                size="small"
-                variant="secondary"
-                onClick={() => onReviewMistakes(Math.min(reviewCount, 10))}
-                disabled={isStarting}
-                icon={<RotateCcw size={15} aria-hidden="true" />}
-              >
-                Repasar mis fallos
-              </Button>
             )}
           </div>
         </div>

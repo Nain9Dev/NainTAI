@@ -21,6 +21,13 @@ Labels: `[A]` the agent completes it alone · `[M]` mixed, a human action closes
 | T-013 | Accessibility pass: labels, focus, live regions, reduced motion | `[A]` | ✅ Every control is labelled; no state depends on colour alone |
 | T-020 | Degrade to the bundled catalogue on a server error, not only on a network failure | `[A]` | ✅ Verified against the stale production API: the exam starts instead of breaking |
 | T-021 | Open IndexedDB on first use rather than on import | `[A]` | ✅ The module loads in Node, and no database is created for a visitor who never goes offline |
+| T-022 | Public landing with a product preview built from the real components | `[A]` | ✅ REQ-060 to REQ-062; checked at 1440 and 390 px |
+| T-023 | Seeded demo: example data, stash and restore, banner, guide | `[A]` | ✅ REQ-063 to REQ-068; 35 unit tests |
+| T-024 | Home overview and performance charts (line with pass mark, consistency calendar, block rings) | `[A]` | ✅ REQ-070, REQ-071; 19 chart tests |
+| T-025 | Record a finished exam once across reloads | `[A]` | ✅ REQ-030; the `recorded` flag lives in the persisted study state |
+| T-026 | SPA fallback and asset caching for Vercel | `[A]` | ✅ REQ-074 in the repository; `[H]` to confirm the root directory, see `41-blockers.md` |
+| T-027 | Header below the NainDev suite bar; phone header on one row | `[A]` | ✅ REQ-075 |
+| T-028 | Split route components into chunks | `[A]` | ✅ First-visit JavaScript about 114 kB gzipped, below the 116 kB of the old single bundle, with a much richer landing |
 
 ## Next
 
@@ -30,11 +37,26 @@ Labels: `[A]` the agent completes it alone · `[M]` mixed, a human action closes
 | T-014 | End-to-end tests with Playwright | `[A]` | The browser pass recorded in `50-traceability.md` runs on every push |
 | T-015 | CI workflow running `npm run verify` | `[M]` | Green on a pull request. Needs the owner to enable Actions |
 | T-016 | Service worker so the offline catalogue survives a cold start | `[A]` | The application opens with no network on a first visit |
-| T-017 | Route-level code splitting | `[A]` | The initial bundle drops below 250 kB gzipped |
 | T-018 | Show the queue's contents, not just its depth | `[A]` | A candidate can see which exams are waiting to sync |
 | T-019 | Decide what to do when an exam is abandoned mid-flight | `[M]` | See OQ-002 in `11-open-questions.md` |
 
 ## Session handoff
+
+**State as of 2026-10-26** (branch `feat/visual-landing-demo`, worktree `D:/wt/SistemaOposicionesTAI-feat-visual-landing-demo`, nothing committed)
+
+- **Done:** T-022 to T-028 (feature workspace `specs/next-visual-landing-demo/`). `npm run verify`
+  passes. The landing, the seeded demo, the home overview and the new charts are in; T-017 is
+  closed by T-028.
+- **Verified:** production build in a real browser at 1440 and 390 px; axe-core 0 violations in
+  10 states; Lighthouse `/` desktop 100 and mobile 92; reduced motion. Recorded in
+  `50-traceability.md`.
+- **Found and fixed on the way:** reloading the results screen filed the exam again (REQ-030);
+  the suite bar hid the brand and the menu button on a phone (REQ-075); production answers 404
+  for every route except `/` (REQ-074, needs the owner).
+- **Next:** owner review, commit and pull request; deploy; check that Vercel's root directory is
+  `Tai.Client`. Then T-012 (component tests) and T-014 (Playwright), which would turn this
+  session's browser pass into automated coverage.
+- **Blocked:** REQ-074 is only effective once the hosting setting is confirmed `[H]`.
 
 **State as of 2026-09-08**
 

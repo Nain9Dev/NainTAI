@@ -27,8 +27,15 @@ interface StudyState {
   timedOut: boolean;
   /** Review mode reveals the answer key on a finished exam. */
   isReviewing: boolean;
+  /**
+   * True once the finished exam has been filed as an attempt (REQ-030). Lives here, persisted
+   * with the exam, rather than in a component ref: a reload remounts the results screen with
+   * a fresh ref, and the same exam used to be recorded again every time.
+   */
+  recorded: boolean;
 
   setMode: (mode: StudyMode) => void;
+  markRecorded: () => void;
   startTest: (questions: Pregunta[], bloque: string) => void;
   answerQuestion: (questionId: number, optionIndex: number) => void;
   clearAnswer: (questionId: number) => void;
@@ -53,6 +60,7 @@ const initialState = {
   secondsRemaining: null as number | null,
   timedOut: false,
   isReviewing: false,
+  recorded: false,
 };
 
 export const useStudyStore = create<StudyState>()(
@@ -61,6 +69,8 @@ export const useStudyStore = create<StudyState>()(
       ...initialState,
 
       setMode: (mode) => set({ mode }),
+
+      markRecorded: () => set({ recorded: true }),
 
       startTest: (questions, bloque) =>
         set({
@@ -76,6 +86,7 @@ export const useStudyStore = create<StudyState>()(
           secondsRemaining: get().mode === 'exam' ? questions.length * SECONDS_PER_QUESTION : null,
           timedOut: false,
           isReviewing: false,
+          recorded: false,
         }),
 
       answerQuestion: (questionId, optionIndex) =>
@@ -158,6 +169,7 @@ export const useStudyStore = create<StudyState>()(
         secondsRemaining: state.secondsRemaining,
         timedOut: state.timedOut,
         isReviewing: state.isReviewing,
+        recorded: state.recorded,
       }),
     },
   ),

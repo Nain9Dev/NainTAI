@@ -7,6 +7,11 @@ import type { UserProfile } from '../types/domain';
 interface AuthState {
   user: UserProfile | null;
   isGuest: boolean;
+  /**
+   * A guest session running on example data (REQ-063). Always a guest too, so every screen
+   * that already handles guests handles the demo without knowing about it.
+   */
+  isDemo: boolean;
   /** True until the first session check completes, so routes do not redirect too early. */
   isHydrating: boolean;
 
@@ -15,6 +20,9 @@ interface AuthState {
   register: (nombre: string, email: string, password: string) => Promise<void>;
   logout: () => Promise<void>;
   continueAsGuest: () => void;
+  /** Marks the guest session as the demo. The example data itself is seeded by `demo/runtime`. */
+  enterDemo: () => void;
+  leaveDemo: () => void;
   /** Confirms with the API whether the cookie session is still alive. */
   hydrate: () => Promise<void>;
 }
@@ -24,6 +32,7 @@ export const useAuthStore = create<AuthState>()(
     (set, get) => ({
       user: null,
       isGuest: false,
+      isDemo: false,
       isHydrating: false,
 
       isAuthenticated: () => get().user !== null,
@@ -31,13 +40,13 @@ export const useAuthStore = create<AuthState>()(
       login: async (email, password) => {
         const response = await authApi.login(email, password);
         useCsrfStore.getState().setToken(response.csrfToken);
-        set({ user: response.user, isGuest: false });
+        set({ user: response.user, isGuest: false, isDemo: false });
       },
 
       register: async (nombre, email, password) => {
         const response = await authApi.register(nombre, email, password);
         useCsrfStore.getState().setToken(response.csrfToken);
-        set({ user: response.user, isGuest: false });
+        set({ user: response.user, isGuest: false, isDemo: false });
       },
 
       logout: async () => {
@@ -48,11 +57,15 @@ export const useAuthStore = create<AuthState>()(
           // is what the user asked for; leaving them "logged in" would be worse.
         } finally {
           useCsrfStore.getState().clearToken();
-          set({ user: null, isGuest: false });
+          set({ user: null, isGuest: false, isDemo: false });
         }
       },
 
-      continueAsGuest: () => set({ user: null, isGuest: true }),
+      continueAsGuest: () => set({ user: null, isGuest: true, isDemo: false }),
+
+      enterDemo: () => set({ user: null, isGuest: true, isDemo: true }),
+
+      leaveDemo: () => set({ user: null, isGuest: false, isDemo: false }),
 
       hydrate: async () => {
         // The persisted profile is a cache for the first paint. The cookie is the real
@@ -77,7 +90,7 @@ export const useAuthStore = create<AuthState>()(
     }),
     {
       name: 'nain_tai_auth_v1',
-      partialize: (state) => ({ user: state.user, isGuest: state.isGuest }),
+      partialize: (state) => ({ user: state.user, isGuest: state.isGuest, isDemo: state.isDemo }),
     },
   ),
 );

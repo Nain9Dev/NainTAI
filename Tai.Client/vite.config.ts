@@ -18,7 +18,9 @@ const DEV_PORT = 5290
 const PREVIEW_PORT = 5291
 
 export default defineConfig({
-  plugins: [TanStackRouterVite(), react()],
+  // Route components load on demand: a visitor who only reads the landing should not download
+  // the exam engine and the dashboard (T-017, OQ-004).
+  plugins: [TanStackRouterVite({ autoCodeSplitting: true }), react()],
   server: {
     port: DEV_PORT,
     // Fail instead of drifting to the next free port. Silently landing on 5291 is how

@@ -1,4 +1,5 @@
 import { RefreshCw, WifiOff } from 'lucide-react';
+import { useAuthStore } from '../../store/useAuthStore';
 import { useConnectionStore } from '../../store/useConnectionStore';
 import styles from './ConnectionBanner.module.css';
 
@@ -14,10 +15,13 @@ export function ConnectionBanner() {
   const pendingWrites = useConnectionStore((state) => state.pendingWrites);
   const isSyncing = useConnectionStore((state) => state.isSyncing);
 
+  // A visitor or a demo has no server-side work to protect: the demo runs on local data by
+  // design (REQ-073), so "no connection to the server" would be a warning about nothing.
+  const isLocalOnly = useAuthStore((state) => state.isDemo || (state.user === null && !state.isGuest));
   const isOffline = mode === 'offline';
 
   // Nothing to say while everything is reaching the server.
-  if (!isOffline && !isSyncing && pendingWrites === 0) {
+  if (isLocalOnly || (!isOffline && !isSyncing && pendingWrites === 0)) {
     return null;
   }
 

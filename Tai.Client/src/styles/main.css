@@ -12,13 +12,29 @@
   box-sizing: border-box;
 }
 
+/*
+ * The suite bar (a hosted custom element) is fixed to the top and covers the first 38px of
+ * the page. Without an offset it sat on top of the sticky header: on a laptop it only ate the
+ * header's padding, but on a phone, where the header's first row holds the brand and the menu
+ * button, it hid both. The offset applies only once the element is defined, so a blocked
+ * script leaves no empty strip behind.
+ */
+:root {
+  --bar-offset: 0px;
+}
+
+:root:has(nain-ecosystem-bar:defined) {
+  --bar-offset: var(--ecosystem-bar-height);
+}
+
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 7rem;
+  scroll-padding-top: calc(7rem + var(--bar-offset));
 }
 
 body {
   margin: 0;
+  padding-top: var(--bar-offset);
   min-width: 20rem;
   overflow-x: hidden;
   background:
@@ -282,6 +298,24 @@ select:focus {
 
 .skip-link:focus {
   transform: translateY(0);
+}
+
+/*
+ * Scroll reveal (REQ-072). `useReveal` writes data-reveal="in" immediately when motion is
+ * reduced or IntersectionObserver is missing, and these rules only exist for viewers who
+ * accept motion, so nothing is ever left invisible waiting for an animation.
+ */
+@media (prefers-reduced-motion: no-preference) {
+  [data-reveal] {
+    transition:
+      opacity 650ms var(--ease-out) var(--reveal-delay, 0ms),
+      transform 650ms var(--ease-out) var(--reveal-delay, 0ms);
+  }
+
+  [data-reveal='out'] {
+    opacity: 0;
+    transform: translateY(1.5rem);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

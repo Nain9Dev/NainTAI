@@ -11,7 +11,7 @@ const CORRECT_ANSWERS_TO_RETIRE = 2;
 
 export const DAILY_GOAL_OPTIONS = [10, 20, 30, 50] as const;
 
-interface ReviewEntry {
+export interface ReviewEntry {
   /** The question itself, so review works with no API reachable. */
   pregunta: Pregunta;
   /** How many times it has been answered wrong. Drives ordering. */
@@ -38,7 +38,15 @@ interface ProgressionState {
   dueForReview: (limit: number) => Pregunta[];
   reviewCount: () => number;
   reset: () => void;
+  /** Replaces the persisted fields wholesale. Used by the demo to seed and to restore. */
+  replaceAll: (snapshot: ProgressionSnapshot) => void;
 }
+
+/** The persisted part of the store: what a demo seeds and what it must put back. */
+export type ProgressionSnapshot = Pick<
+  ProgressionState,
+  'streak' | 'dailyGoal' | 'answeredToday' | 'todayDay' | 'reviewQueue'
+>;
 
 const initialStreak: StreakState = { current: 0, longest: 0, lastPracticeDay: null };
 
@@ -121,6 +129,15 @@ export const useProgressionStore = create<ProgressionState>()(
 
       reset: () =>
         set({ streak: initialStreak, answeredToday: 0, todayDay: null, reviewQueue: {} }),
+
+      replaceAll: (snapshot) =>
+        set({
+          streak: snapshot.streak,
+          dailyGoal: snapshot.dailyGoal,
+          answeredToday: snapshot.answeredToday,
+          todayDay: snapshot.todayDay,
+          reviewQueue: snapshot.reviewQueue,
+        }),
     }),
     {
       name: 'nain_tai_progression_v1',

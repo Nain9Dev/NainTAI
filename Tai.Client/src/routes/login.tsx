@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import { createFileRoute, Link, useNavigate } from '@tanstack/react-router';
+import { Play } from 'lucide-react';
+import { useStartDemo } from '../demo/useStartDemo';
 import { Card } from '../components/ui/Card';
 import { Button } from '../components/ui/Button';
 import { TextField } from '../components/ui/Field';
@@ -18,6 +20,7 @@ function Login() {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const navigate = useNavigate();
+  const { start: startDemo, isStarting: isStartingDemo } = useStartDemo();
   const login = useAuthStore((state) => state.login);
   const continueAsGuest = useAuthStore((state) => state.continueAsGuest);
 
@@ -48,6 +51,21 @@ function Login() {
     <div className={styles.page}>
       <div className={styles.panel}>
         <Card eyebrow="Acceso" title="Inicia sesión" subtitle="Recupera tu progreso y estadísticas.">
+          <div className={styles.demo}>
+            <div>
+              <strong>¿Solo quieres verlo?</strong>
+              <span>Entra a la demo con datos de ejemplo, sin registrarte.</span>
+            </div>
+            <Button
+              size="small"
+              onClick={() => void startDemo('/')}
+              isLoading={isStartingDemo}
+              icon={<Play size={14} aria-hidden="true" />}
+            >
+              Probar la demo
+            </Button>
+          </div>
+
           <form className={styles.form} onSubmit={handleSubmit} noValidate>
             {error && (
               <Callout tone="danger" live="assertive">

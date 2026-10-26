@@ -3,6 +3,8 @@ import type { ReactNode } from 'react';
 import { Header } from './Header';
 import { Footer } from './Footer';
 import { ConnectionBanner } from '../ui/ConnectionBanner';
+import { DemoBanner } from '../../features/demo/DemoBanner';
+import { DemoGuide } from '../../features/demo/DemoGuide';
 import styles from './BaseLayout.module.css';
 
 interface BaseLayoutProps {
@@ -19,12 +21,14 @@ export function BaseLayout({ children }: BaseLayoutProps) {
       </a>
 
       <Header />
+      <DemoBanner />
 
       <main id="main-content" className={`shell ${styles.main}`}>
         {children}
       </main>
 
       <Footer />
+      <DemoGuide />
       <ConnectionBanner />
     </>
   );

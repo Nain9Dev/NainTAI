@@ -7,6 +7,8 @@ import { Callout } from '../../components/ui/Callout';
 import { useDisponibilidad, useGenerateExam } from '../../hooks/useStudy';
 import { useStudyStore, SECONDS_PER_QUESTION } from '../../store/useStudyStore';
 import { useConnectionStore } from '../../store/useConnectionStore';
+import { useAuthStore } from '../../store/useAuthStore';
+import { useDemoStore } from '../../store/useDemoStore';
 import { ALL_BLOCKS, SYLLABUS_BLOCKS } from '../../types/domain';
 import { formatDuration } from '../../utils/scoring';
 import type { StudyMode } from '../../store/useStudyStore';
@@ -28,7 +30,9 @@ export function SetupForm() {
 
   const mode = useStudyStore((state) => state.mode);
   const setMode = useStudyStore((state) => state.setMode);
-  const isOffline = useConnectionStore((state) => state.mode === 'offline');
+  // The demo runs on the local catalogue by design (REQ-073); warning about it would be noise.
+  const isDemo = useAuthStore((state) => state.isDemo);
+  const isOffline = useConnectionStore((state) => state.mode === 'offline') && !isDemo;
 
   const generate = useGenerateExam();
   const { data: disponibilidad } = useDisponibilidad(bloque);
@@ -40,6 +44,11 @@ export function SetupForm() {
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
+
+    if (mode === 'exam') {
+      useDemoStore.getState().complete('exam');
+    }
+
     generate.mutate({ bloque, cantidad });
   };
 

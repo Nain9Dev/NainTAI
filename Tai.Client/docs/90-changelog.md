@@ -1,5 +1,52 @@
 # 90 — Changelog
 
+## 2026-10-26 — Public landing, seeded demo and visual overhaul
+
+`tai.naindev.com` is a portfolio showpiece, but a visitor saw only a sign-in form: nothing of
+the product without an account, and a guest opened a dashboard of zeros.
+
+### Added
+
+- **A public landing at `/`** (REQ-060 to REQ-062): value proposition, "Probar la demo", a
+  preview drawn with the product's own components from the same seed the demo uses, the six
+  functions each opening its screen in the demo, three steps and a closing call to action.
+- **A seeded demo** (REQ-063 to REQ-068, REQ-073): one click opens a guest session with three
+  weeks of synthetic practice, a live streak, a goal in progress and a review queue. It reuses
+  every existing screen, calls no endpoint, and keeps the visitor's own progress aside and
+  restores it on exit. A persistent banner says the data is an example; a checklist guide ticks
+  itself as the visitor tries each function.
+- **A home overview** (REQ-070): goal ring, four figures, three ways to start and mastery by block
+  with the weakest called out, above the existing exam form.
+- **Performance charts** (REQ-071): a smooth grade line with the pass mark, a ten-week consistency
+  calendar and shared block meters. Inline SVG from pure, tested functions; no chart library.
+- Scroll reveal, counters, ring and line animation, all behind `prefers-reduced-motion`
+  (REQ-072).
+
+### Fixed
+
+- **Reloading the results screen filed the same exam again** (REQ-030). The guard was a `useRef`,
+  which a reload resets while the finished exam stays in `sessionStorage`. Each reload added an
+  attempt, a streak day, review-queue entries and, signed in, a server write. The flag now lives
+  in the persisted study state.
+- **The NainDev suite bar covered the sticky header** (REQ-075). On a phone it hid the brand and
+  the menu button. The header now sits below it, and its actions share one row.
+- **Production answered 404 for `/login`, `/analytics`, `/perfil` and `/register`** (REQ-074).
+  Only `/` loaded; in-app navigation hid it. `vercel.json` now rewrites to `index.html` and caches
+  fingerprinted assets for a year.
+
+### Changed
+
+- Route components load on demand: first-visit JavaScript is about 114 kB gzipped against the
+  116 kB of the old single bundle, with a far richer first screen (T-017, OQ-004).
+- `DailyProgress` lost its buttons to the new action cards; the header is 5 rem instead of 6 rem
+  to pay for the suite bar's 38 px.
+
+### Verification
+
+Production build in a real browser at 1440 and 390 px: axe-core 0 violations in 10 states,
+Lighthouse performance 100 desktop and 92 mobile with accessibility 100, reduced motion checked.
+158 unit tests. See `50-traceability.md`.
+
 ## 2026-09-08 — Degrade on server errors
 
 The deployed API predates the `/api/preguntas` endpoints, so every read returned 404 and the
