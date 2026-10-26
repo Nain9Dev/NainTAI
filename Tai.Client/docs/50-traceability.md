@@ -5,8 +5,10 @@ whatever the code says.
 
 Suites:
 
-- **Unit** — `npm run test` (60 tests, Vitest). Pure logic: marking, aggregation,
-  normalisation and the degradation policy.
+- **Unit** — `npm run test` (158 tests, Vitest, Node environment). Pure logic: marking,
+  aggregation, normalisation, the degradation policy, the demo seed and session, the chart
+  geometry and the deployment configuration. There is no jsdom, so components are covered by
+  the browser pass until T-012.
 - **Browser** — a manual pass against a live API, recorded below.
 - **Types** — `npm run typecheck`. Contract drift against the API surfaces here.
 
@@ -51,7 +53,7 @@ Suites:
 
 | Requirement | Evidence | Suite |
 | :--- | :--- | :--- |
-| REQ-030 | The `hasSubmitted` ref in `ExamResults`; the database held exactly one row after the browser pass | Browser |
+| REQ-030 | `useStudyStore.test.ts` — the `recorded` flag is set once, persisted to `sessionStorage` and cleared by the next exam. The `hasSubmitted` ref alone did not survive a reload: reloading the results screen filed the same exam again (found 2026-10-26, six extra attempts in one session) | Unit + Browser |
 | REQ-031 | The `pendienteSincronizar` branch in `useSubmitIntento` | — |
 | REQ-032 | `offlineQueue.enqueue` on `QueuedOfflineError` | — |
 | REQ-033 | `MAX_ATTEMPTS` in the queue | — |
@@ -85,6 +87,42 @@ Suites:
 | REQ-055 | `useConnectionStore`, no polling interval anywhere | — |
 | REQ-056 | Browser pass at 375×812; the disclosure menu toggled correctly | Browser |
 | REQ-057 | `role="status"` with a text alternative in `LoadingSkeleton` | — |
+
+## Public landing and demo
+
+| Requirement | Evidence | Suite |
+| :--- | :--- | :--- |
+| REQ-060 | `/` in `PUBLIC_ROUTES`; `Home` renders `Landing` without a session. Browser pass: a clean visitor opens the landing, not sign-in | Browser |
+| REQ-061 | Browser pass: value proposition, both actions and the preview in the first screen at 1280×720 and 390×844 | Browser |
+| REQ-062 | `FEATURES` lists the six functions; each opens its screen in the demo. Browser pass | Browser |
+| REQ-063 | `seed.test.ts` — 16 tests: attempts across three weeks, live streak, goal in progress, review queue, nothing empty | Unit |
+| REQ-064 | `seed.test.ts > moves with the calendar`, `> returns identical data for identical input`; the demo path calls no endpoint | Unit |
+| REQ-065 | `DemoBanner`; browser pass: visible on every screen with the three actions | Browser |
+| REQ-066 | `session.test.ts` — 10 tests: stash, restore, double start, empty visitor, unreadable stash, leaving without a demo. `ACCOUNT_ROUTES` closes the demo before sign-in or registration | Unit + Browser |
+| REQ-067 | Browser pass: a finished quick round raised the attempt count and the review queue | Browser |
+| REQ-068 | `guide.test.ts` — 9 tests over steps, progress and the store; browser pass: steps ticked as done | Unit + Browser |
+| REQ-070 | Browser pass: the home opens on goal, figures, three actions and four block rings | Browser |
+| REQ-071 | `chart.test.ts` — 19 tests over line, area, ring and calendar geometry; browser pass; `role="img"` text alternatives | Unit + Browser |
+| REQ-072 | axe: 0 violations in 10 states; reduced-motion capture shows every section; keyframes sit under `prefers-reduced-motion: no-preference` | Browser |
+| REQ-073 | The demo reads only `/data/preguntas.json`; its screens render with the API unreachable | Browser |
+| REQ-074 | `deploy.test.ts` — the rewrite to `/index.html`. Production answered 404 for `/login`, `/analytics`, `/perfil` and `/register` on 2026-10-26 (checked with `curl`); needs the Vercel root directory set, see `41-blockers.md` | Unit |
+| REQ-075 | Browser pass at 390 px: brand and menu button visible below the bar (before: both at y 4–38 px under a 38 px bar) | Browser |
+
+## Browser verification, 2026-10-26
+
+Production build served by `vite preview`, driven through the DevTools protocol, API unreachable.
+
+| Step | Result |
+| :--- | :--- |
+| Landing, 1440 px and 390 px | Hero, preview, six functions, three steps and the closing call to action render; no horizontal scroll |
+| Demo start | Opens the home populated: 15 of 20 today, 9-day streak, 17 attempts, mean grade 5,28, block III flagged |
+| Quick round | Five questions, feedback with icon, border and text; results screen; review queue 7 to 10 |
+| Performance screen | Trend line with the pass mark, 16 active days in the calendar, block meters |
+| Leave the demo | Returns to the landing; the visitor's own data restored |
+| Lighthouse (`/`) | Desktop performance 100, accessibility 100; mobile performance 92, accessibility 100 (LCP 2,9 s) |
+| axe-core 4.13, WCAG 2.0 to 2.2 A and AA | 0 violations on landing, sign-in, demo home, guide open and demo performance, at both widths |
+| Reduced motion | No section left invisible; the line, rings and counters show their final state |
+| Console | No application errors; `ERR_CONNECTION_REFUSED` only for the absent API, as expected |
 
 ## Browser verification, 2026-09-08
 

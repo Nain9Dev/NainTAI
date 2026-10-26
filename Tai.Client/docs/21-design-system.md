@@ -81,8 +81,39 @@ under time pressure.
    `prefers-reduced-motion: no-preference`, plus a global override.
 6. **Keyboard shortcuts yield.** Arrow keys and A–D never fire while focus is in a field.
 
+## Components added with the landing (2026-10-26)
+
+| Component | Role | Notes |
+| :--- | :--- | :--- |
+| `ProgressRing` | Circular gauge | Starts empty and is set one frame after mount so the stroke transition has somewhere to run. Sized in `rem`; the label scales in `em` from that one number |
+| `MasteryBar` | Horizontal meter, three bands | Band changes the fill, the border style (dashed when weak) and a text tag, so the verdict is never colour alone |
+| `AnimatedNumber` | Counting figure | Final text is always the exact value; reduced motion shows it at once |
+| `TrendLineChart` | Grade line with the pass mark | Smooth Bézier with control points clamped to each segment, so a bounded grade never draws a mark above ten or below zero. Passed is a solid dot, failed a hollow ring |
+| `ConsistencyCalendar` | Ten weeks of practice | Monday first, local days, future days dashed. One sentence for assistive technology; the shades are never the only source |
+| `Landing`, `ProductPreview` | Public first screen | The preview uses the demo seed, so its figures are the ones behind the button |
+| `DemoBanner`, `DemoGuide` | Demo chrome | Banner is persistent and plain about being example data. The guide starts folded: opened it covers the left of a laptop screen |
+
+Chart geometry lives in `utils/chart.ts` as pure functions, tested without a DOM.
+
+## Motion
+
+Reveal, counters, ring and line drawing, the floating preview and the calendar pop-in all sit
+behind `prefers-reduced-motion: no-preference`. The reveal hook reports "in" immediately when
+motion is reduced or `IntersectionObserver` is missing, and the CSS that hides `data-reveal="out"`
+exists only for viewers who accept motion, so nothing is left invisible waiting for an animation.
+An explicit `scrollIntoView({ behavior: 'smooth' })` ignores the CSS override, so it is gated in
+code.
+
+## The suite bar
+
+The NainDev suite bar is a hosted custom element fixed to the top, 38 px tall. `--bar-offset`
+becomes `--ecosystem-bar-height` only when the element is defined (`:has(nain-ecosystem-bar:defined)`),
+and the body and the sticky header use it, so a blocked script leaves no empty strip. The bar can
+fold into a floating pill but does not expose that state, so the 38 px stay reserved.
+
 ## Layout
 
 `.shell` is `min(100% - 3rem, 78rem)`, the same as the portfolio. The header is sticky
-glass at `6rem`, collapsing to a disclosure menu below `60rem`. Metric grids use
+glass at `5rem` (it was `6rem` before the suite bar's 38 px had to be paid for), collapsing to a
+disclosure menu below `60rem` with the brand, the actions and the menu button on one row. Metric grids use
 `repeat(auto-fit, minmax(13rem, 1fr))` so they reflow without breakpoints.

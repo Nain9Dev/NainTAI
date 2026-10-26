@@ -31,7 +31,9 @@ unreachable server are indistinguishable to `fetch`.
 | `[H]` | Point `tai.naindev.com` at the deployment | DNS access |
 | `[H]` | Set `VITE_API_BASE_URL` in the hosting provider | Account access |
 | `[H]` | Enable GitHub Actions | Repository setting, owner only |
+| `[H]` | Confirm the Vercel project's **Root Directory** is `Tai.Client` and redeploy | Account access. `vercel.json` (REQ-074) only takes effect when the project builds from that folder. Ready when `curl -I https://tai.naindev.com/login` answers 200 instead of 404 |
 
 ## Currently blocking
 
-Nothing. Every `[A]` task in [`40-tasks.md`](40-tasks.md) can proceed locally.
+Nothing for local work. REQ-074 (deep links) needs the Vercel setting above before production
+stops answering 404 for `/login`, `/analytics`, `/perfil` and `/register`.

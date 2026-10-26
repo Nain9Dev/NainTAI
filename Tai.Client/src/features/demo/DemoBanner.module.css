@@ -1,0 +1,58 @@
+.banner {
+  border-bottom: 1px solid rgba(96, 165, 250, 0.3);
+  background: linear-gradient(90deg, rgba(59, 130, 246, 0.16), rgba(99, 121, 232, 0.07) 55%, rgba(52, 211, 153, 0.08));
+}
+
+.inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem 1rem;
+  padding-block: 0.55rem;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.2rem 0.65rem;
+  border: 1px solid rgba(96, 165, 250, 0.5);
+  border-radius: var(--radius-pill);
+  background: rgba(59, 130, 246, 0.18);
+  color: var(--color-primary-strong);
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.text {
+  flex: 1 1 16rem;
+  margin: 0;
+  color: var(--color-text-soft);
+  font-size: 0.88rem;
+}
+
+.text strong {
+  color: var(--color-text);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+
+/* On a phone the three actions share one row instead of wrapping onto three. */
+@media (max-width: 40rem) {
+  .actions {
+    width: 100%;
+    flex-wrap: nowrap;
+  }
+
+  .actions > * {
+    flex: 1 1 0;
+    padding-inline: 0.4rem;
+  }
+}

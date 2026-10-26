@@ -63,7 +63,9 @@
 
   /* Layout */
   --shell-width: 78rem;
-  --header-height: 6rem;
+  --header-height: 5rem;
+  /* The NainDev suite bar is a fixed strip of this height at the top of the viewport. */
+  --ecosystem-bar-height: 38px;
 
   /* Typography */
   --font-sans: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif;

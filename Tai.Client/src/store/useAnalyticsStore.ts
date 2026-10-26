@@ -16,6 +16,8 @@ interface AnalyticsState {
   /** Drops a local copy once the server has acknowledged the same attempt. */
   confirmSynced: (localId: number) => void;
   reset: () => void;
+  /** Replaces the whole history. Used by the demo to seed example data and to restore the real one. */
+  replaceAll: (historial: Intento[]) => void;
 }
 
 export const useAnalyticsStore = create<AnalyticsState>()(
@@ -34,6 +36,8 @@ export const useAnalyticsStore = create<AnalyticsState>()(
         })),
 
       reset: () => set({ historial: [] }),
+
+      replaceAll: (historial) => set({ historial: historial.slice(-MAX_LOCAL_ATTEMPTS) }),
     }),
     {
       name: 'nain_tai_analytics_v1',

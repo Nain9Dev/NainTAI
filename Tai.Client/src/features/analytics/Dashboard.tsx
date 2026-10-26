@@ -1,14 +1,19 @@
+import { useMemo } from 'react';
 import { Link } from '@tanstack/react-router';
 import { Trash2 } from 'lucide-react';
 import { Card } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
 import { Callout } from '../../components/ui/Callout';
 import { Metric } from '../../components/ui/Metric';
+import { AnimatedNumber } from '../../components/ui/AnimatedNumber';
+import { MasteryBar } from '../../components/ui/MasteryBar';
 import { LoadingSkeleton } from '../../components/ui/LoadingSkeleton';
-import { useBorrarHistorial, useEstadisticas } from '../../hooks/useProgress';
+import { useBorrarHistorial, useEstadisticas, useHistorial } from '../../hooks/useProgress';
+import { useAnalyticsStore } from '../../store/useAnalyticsStore';
 import { useAuthStore } from '../../store/useAuthStore';
 import { blockDisplayName } from '../../types/domain';
-import type { BloqueRendimiento, TendenciaPunto } from '../../types/domain';
+import { ConsistencyCalendar } from './ConsistencyCalendar';
+import { TrendLineChart } from './TrendLineChart';
 import styles from './Dashboard.module.css';
 
 const PASS_MARK = 5;
@@ -16,8 +21,19 @@ const PASS_MARK = 5;
 export function Dashboard() {
   const { estadisticas, isLoading, error } = useEstadisticas();
   const isGuest = useAuthStore((state) => state.isGuest);
+  // The demo banner already says the data is an example; repeating it here would be noise.
+  const isDemo = useAuthStore((state) => state.isDemo);
   const isAuthenticated = useAuthStore((state) => state.user !== null);
   const borrar = useBorrarHistorial();
+
+  // The calendar needs dates, which the statistics summary does not carry: the server's recent
+  // history plus whatever only exists in this browser, as the statistics themselves are merged.
+  const history = useHistorial(1, 100);
+  const localAttempts = useAnalyticsStore((state) => state.historial);
+  const attempts = useMemo(
+    () => [...(history.data?.items ?? []), ...localAttempts],
+    [history.data, localAttempts],
+  );
 
   if (isLoading) {
     return (
@@ -41,25 +57,7 @@ export function Dashboard() {
             : 'Aún no hay datos suficientes.'
         }
         actions={
-          hasData ? (
-            <Button
-              variant="danger"
-              size="small"
-              icon={<Trash2 size={15} aria-hidden="true" />}
-              isLoading={borrar.isPending}
-              onClick={() => {
-                if (
-                  window.confirm(
-                    '¿Seguro que quieres borrar todo tu historial? Esta acción no se puede deshacer.',
-                  )
-                ) {
-                  borrar.mutate();
-                }
-              }}
-            >
-              Borrar historial
-            </Button>
-          ) : undefined
+          hasData ? <ClearHistory isPending={borrar.isPending} onConfirm={() => borrar.mutate()} /> : undefined
         }
       >
         {error && (
@@ -68,50 +66,49 @@ export function Dashboard() {
           </Callout>
         )}
 
-        {isGuest && hasData && (
+        {isGuest && !isDemo && hasData && (
           <Callout tone="info" title="Estás usando el modo invitado">
-            Tu progreso se guarda solo en este navegador.{' '}
-            <Link to="/register">Crea una cuenta</Link> para conservarlo y consultarlo desde
-            cualquier dispositivo.
+            Tu progreso se guarda solo en este navegador. <Link to="/register">Crea una cuenta</Link>{' '}
+            para conservarlo y consultarlo desde cualquier dispositivo.
           </Callout>
         )}
 
         {!hasData ? (
           <div className={styles.empty}>
             <span className={styles.emptyTitle}>Todavía no has hecho ningún simulacro</span>
-            <p style={{ margin: '0 0 1.25rem' }}>
-              En cuanto completes el primero verás aquí tu nota media, tu tasa de acierto y en
-              qué bloque conviene que insistas.
+            <p className={styles.emptyText}>
+              En cuanto completes el primero verás aquí tu nota media, tu tasa de acierto y en qué
+              bloque conviene que insistas.
             </p>
             <Link to="/">
               <Button>Empezar un simulacro</Button>
             </Link>
           </div>
         ) : (
-          <div className="metric-grid" style={{ marginTop: error || isGuest ? '1.5rem' : 0 }}>
+          <div className={`metric-grid ${error || (isGuest && !isDemo) ? styles.spaced : ''}`}>
             <Metric
               label="Nota media"
-              value={format(estadisticas.notaMedia)}
+              value={<AnimatedNumber value={estadisticas.notaMedia} decimals={2} />}
               unit="/ 10"
               tone={estadisticas.notaMedia >= PASS_MARK ? 'success' : 'danger'}
               caption="Baremo oficial INAP"
             />
             <Metric
               label="Tasa de acierto"
-              value={format(estadisticas.tasaAcierto)}
+              value={<AnimatedNumber value={estadisticas.tasaAcierto} />}
               unit="%"
               tone="accent"
               caption={`${estadisticas.aciertos} de ${estadisticas.totalPreguntas}`}
             />
             <Metric
               label="Mejor nota"
-              value={format(estadisticas.mejorNota)}
+              value={<AnimatedNumber value={estadisticas.mejorNota} decimals={2} />}
               unit="/ 10"
               tone="success"
             />
             <Metric
               label="Última nota"
-              value={format(estadisticas.ultimaNota)}
+              value={<AnimatedNumber value={estadisticas.ultimaNota} decimals={2} />}
               unit="/ 10"
               tone={estadisticas.ultimaNota >= PASS_MARK ? 'success' : 'danger'}
               caption={formatDate(estadisticas.ultimaActividad)}
@@ -119,6 +116,24 @@ export function Dashboard() {
           </div>
         )}
       </Card>
+
+      {hasData && (
+        <div className={styles.charts}>
+          {estadisticas.tendencia.length > 1 && (
+            <Card
+              eyebrow="Evolución"
+              title="Tus últimos simulacros"
+              subtitle="Nota obtenida, del más antiguo al más reciente."
+            >
+              <TrendLineChart points={estadisticas.tendencia} passMark={PASS_MARK} />
+            </Card>
+          )}
+
+          <Card eyebrow="Constancia" title="Tu práctica por días" subtitle="Preguntas respondidas cada día.">
+            <ConsistencyCalendar attempts={attempts} />
+          </Card>
+        </div>
+      )}
 
       {hasData && estadisticas.rendimientoPorBloque.length > 0 && (
         <Card
@@ -132,19 +147,16 @@ export function Dashboard() {
         >
           <div className={styles.blocks}>
             {estadisticas.rendimientoPorBloque.map((block) => (
-              <BlockBar key={block.bloque} block={block} />
+              <MasteryBar
+                key={block.bloque}
+                label={blockDisplayName(block.bloque)}
+                percent={block.precision}
+                detail={`${format(block.precision)}% · ${block.aciertos}/${block.total} · nota ${format(block.notaMedia)}`}
+                ariaLabel={`Precisión en el bloque ${block.bloque}`}
+                highlight={estadisticas.bloqueMasDebil === block.bloque}
+              />
             ))}
           </div>
-        </Card>
-      )}
-
-      {hasData && estadisticas.tendencia.length > 1 && (
-        <Card
-          eyebrow="Evolución"
-          title="Tus últimos simulacros"
-          subtitle="Nota obtenida, del más antiguo al más reciente."
-        >
-          <TrendChart points={estadisticas.tendencia} />
         </Card>
       )}
 
@@ -157,63 +169,22 @@ export function Dashboard() {
   );
 }
 
-function BlockBar({ block }: { block: BloqueRendimiento }) {
-  // Three bands rather than a continuous gradient: the point is to say "leave it" or
-  // "work on this", and a precise hue does not help make that call.
-  const tone =
-    block.precision >= 70 ? styles.barStrong : block.precision >= 50 ? styles.barMedium : styles.barWeak;
-
+function ClearHistory({ isPending, onConfirm }: { isPending: boolean; onConfirm: () => void }) {
   return (
-    <div className={styles.block}>
-      <div className={styles.blockHeader}>
-        <span className={styles.blockName}>{blockDisplayName(block.bloque)}</span>
-        <span className={styles.blockStats}>
-          {format(block.precision)}% · {block.aciertos}/{block.total} · nota{' '}
-          {format(block.notaMedia)}
-        </span>
-      </div>
-
-      <div
-        className={styles.bar}
-        role="meter"
-        aria-valuenow={Math.round(block.precision)}
-        aria-valuemin={0}
-        aria-valuemax={100}
-        aria-label={`Precisión en el bloque ${block.bloque}`}
-      >
-        <div className={`${styles.barFill} ${tone}`} style={{ width: `${block.precision}%` }} />
-      </div>
-    </div>
+    <Button
+      variant="danger"
+      size="small"
+      icon={<Trash2 size={15} aria-hidden="true" />}
+      isLoading={isPending}
+      onClick={() => {
+        if (window.confirm('¿Seguro que quieres borrar todo tu historial? Esta acción no se puede deshacer.')) {
+          onConfirm();
+        }
+      }}
+    >
+      Borrar historial
+    </Button>
   );
-}
-
-function TrendChart({ points }: { points: TendenciaPunto[] }) {
-  return (
-    <>
-      <div className={styles.trend} role="img" aria-label={describeTrend(points)}>
-        {points.map((point, index) => (
-          <div
-            key={`${point.fecha}-${index}`}
-            className={`${styles.trendBar} ${point.nota < PASS_MARK ? styles.trendBarFail : ''}`}
-            // A floor of 4% keeps a zero visible as a bar rather than nothing at all.
-            style={{ height: `${Math.max((point.nota / 10) * 100, 4)}%` }}
-            title={`${format(point.nota)} / 10 · ${formatDate(point.fecha)}`}
-          />
-        ))}
-      </div>
-
-      <div className={styles.trendAxis}>
-        <span>{formatDate(points[0]?.fecha)}</span>
-        <span>{formatDate(points[points.length - 1]?.fecha)}</span>
-      </div>
-    </>
-  );
-}
-
-/** The chart is decorative for a screen reader; this sentence carries the information. */
-function describeTrend(points: TendenciaPunto[]): string {
-  const grades = points.map((point) => format(point.nota)).join(', ');
-  return `Evolución de la nota en los últimos ${points.length} simulacros: ${grades}.`;
 }
 
 function format(value: number): string {

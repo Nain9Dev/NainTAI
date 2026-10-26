@@ -78,3 +78,31 @@ traced to a test in [`50-traceability.md`](50-traceability.md).
 | REQ-055 | When the connection state changes, the system shall reflect it without polling. | Implemented |
 | REQ-056 | The interface shall be operable on a 375-pixel-wide viewport. | Implemented |
 | REQ-057 | When content is loading, the system shall announce it to assistive technology rather than only showing a placeholder. | Implemented |
+
+## Public landing and demo
+
+Feature workspace: `specs/next-visual-landing-demo/`. The deployed application is a showpiece:
+a visitor must understand what it does and see it working within a minute, without an account.
+
+| Id | Requirement | Status |
+| :--- | :--- | :--- |
+| REQ-060 | When a visitor with no session opens `/`, the system shall show a public landing page instead of redirecting to sign-in. Every other route keeps requiring a session or guest mode. | Implemented |
+| REQ-061 | The first screen of the landing shall state the value proposition, offer "Probar la demo" and "Iniciar sesión", and show a product preview built from the real interface components with example data. | Implemented |
+| REQ-062 | The landing shall present every product function (official-scale mock exams, study mode, review of mistakes, performance by block, streak and daily goal, offline use) and let the visitor open each one in the demo. | Implemented |
+| REQ-063 | When the visitor starts the demo, the system shall open a guest session seeded with example data: attempts across the last three weeks, a practice streak, a daily goal in progress and a review queue, so that no screen opens empty. | Implemented |
+| REQ-064 | The demo data shall be synthetic, generated deterministically relative to the current date, and shall never be sent to the API. | Implemented |
+| REQ-065 | While the demo is active, the system shall show a persistent notice that the data is an example, with actions to reset the demo and to create an account. | Implemented |
+| REQ-066 | When the demo is reset or left, the system shall remove the example data, restore any guest progress that existed before it started, and return to the landing. | Implemented |
+| REQ-067 | When a demo visitor finishes an exam, the system shall record it like any guest attempt and show it in the seeded history. | Implemented |
+| REQ-068 | While the demo is active, the system shall offer a guide listing what to try and mark each step done as the visitor does it. | Implemented |
+
+## Product presentation
+
+| Id | Requirement | Status |
+| :--- | :--- | :--- |
+| REQ-070 | The home of a guest or signed-in candidate shall open on an overview: today's goal and streak, the three study actions, and mastery by block. | Implemented |
+| REQ-071 | The performance screen shall show the grade trend as a line chart with the pass mark, a consistency calendar of the last weeks, and mastery by block; each shall carry a text alternative. | Implemented |
+| REQ-072 | New animation shall run only under `prefers-reduced-motion: no-preference`, and every new screen shall satisfy REQ-052, REQ-053 and REQ-056. | Implemented |
+| REQ-073 | The demo shall work with no network: it shall use no account endpoint and shall fall back to the bundled catalogue for questions. | Implemented |
+| REQ-074 | When a route of the application is typed, bookmarked or reloaded, the host shall serve the application rather than answer 404. | Implemented |
+| REQ-075 | When the NainDev suite bar is present, the sticky header shall sit below it, so the bar never covers the brand or the menu button. | Implemented |

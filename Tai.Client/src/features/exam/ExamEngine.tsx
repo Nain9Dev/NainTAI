@@ -190,13 +190,15 @@ function ExamResults() {
   const score = useMemo(() => gradeExam(questions, answers), [questions, answers]);
 
   useEffect(() => {
-    // React 18 mounts effects twice in development; the ref is what keeps a single exam
-    // from being recorded as two attempts.
-    if (hasSubmitted.current || questions.length === 0) {
+    // Two guards for two different repeats. The ref stops React's double-invoked effects in
+    // development; the store flag stops a reload, which remounts this screen with a fresh ref
+    // while the finished exam is still in sessionStorage (REQ-030).
+    if (hasSubmitted.current || useStudyStore.getState().recorded || questions.length === 0) {
       return;
     }
 
     hasSubmitted.current = true;
+    useStudyStore.getState().markRecorded();
 
     // Filed before the network call, so the streak and the review queue advance even
     // when the attempt cannot reach the server.

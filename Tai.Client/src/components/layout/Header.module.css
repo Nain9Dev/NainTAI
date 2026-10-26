@@ -2,7 +2,8 @@
 
 .header {
   position: sticky;
-  top: 0;
+  /* Sticks below the suite bar, not under it (see main.css). */
+  top: var(--bar-offset, 0px);
   z-index: 50;
   border-bottom: 1px solid var(--color-line);
   background: rgba(8, 11, 18, 0.84);
@@ -122,6 +123,12 @@
   color: var(--color-success);
 }
 
+.demo {
+  border-color: rgba(96, 165, 250, 0.5);
+  background: rgba(59, 130, 246, 0.14);
+  color: var(--color-primary-strong);
+}
+
 .offline {
   border-color: var(--color-warning-line);
   background: var(--color-warning-soft);
@@ -139,19 +146,34 @@
 }
 
 @media (max-width: 60rem) {
+  /*
+   * One row holds the brand, the trailing actions and the menu button; the links open below.
+   * Named areas rather than source order: the actions used to fall onto a row of their own,
+   * which pushed the whole header down for a streak counter.
+   */
   .layout {
-    grid-template-columns: auto auto;
-    justify-content: space-between;
-    gap: 0.75rem;
+    grid-template-columns: 1fr auto auto;
+    grid-template-areas:
+      'brand trailing menu'
+      'nav nav nav';
+    gap: 0.4rem 0.75rem;
+  }
+
+  .brand {
+    grid-area: brand;
   }
 
   .menuButton {
     display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    grid-area: menu;
+    min-width: 44px;
+    min-height: 44px;
   }
 
   .nav {
-    order: 3;
-    grid-column: 1 / -1;
+    grid-area: nav;
     justify-content: flex-start;
     flex-wrap: wrap;
     gap: 1rem;
@@ -167,10 +189,53 @@
   }
 }
 
+@media (max-width: 30rem) {
+  /* The wordmark alone is enough on a phone; the full name would push the actions off the row. */
+  .brandName {
+    display: none;
+  }
+}
+
 .trailing {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
+}
+
+/* Plain sign-in link beside the demo button: the visitor's first choice is the button. */
+.signIn {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding-inline: 0.75rem;
+  color: var(--color-text-muted);
+  font-size: 0.9rem;
+  font-weight: 650;
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+.signIn:hover {
+  color: var(--color-text);
+}
+
+/* The same link inside the opened menu, which is where a phone puts it. */
+.navSignIn {
+  display: none;
+}
+
+@media (max-width: 60rem) {
+  .trailing {
+    grid-area: trailing;
+  }
+
+  .signIn {
+    display: none;
+  }
+
+  .navSignIn {
+    display: inline-block;
+  }
 }
 
 /* Streak counter. Amber while alive, red once today is still pending. */

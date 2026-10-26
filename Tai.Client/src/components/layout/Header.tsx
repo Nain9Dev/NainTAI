@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 import { Link } from '@tanstack/react-router';
-import { Database, Flame, Menu, ServerCrash, X } from 'lucide-react';
+import { Database, Flame, Menu, Play, ServerCrash, Sparkles, X } from 'lucide-react';
+import { Button } from '../ui/Button';
+import { useStartDemo } from '../../demo/useStartDemo';
 import { useConnectionStore } from '../../store/useConnectionStore';
 import { useAuthStore } from '../../store/useAuthStore';
 import { useProgressionStore } from '../../store/useProgressionStore';
@@ -13,9 +15,19 @@ const NAV_ITEMS = [
   { to: '/perfil', label: 'Mi perfil', exact: false },
 ] as const;
 
+/** What a visitor can do before having a session: read about the product, then try it. */
+const VISITOR_LINKS = [
+  { hash: 'funciones', label: 'Funciones' },
+  { hash: 'como-funciona', label: 'Cómo funciona' },
+] as const;
+
 export function Header() {
   const mode = useConnectionStore((state) => state.mode);
   const isGuest = useAuthStore((state) => state.isGuest);
+  const isDemo = useAuthStore((state) => state.isDemo);
+  // A visitor has neither an account nor guest mode: the navigation would send them to sign-in.
+  const isVisitor = useAuthStore((state) => state.user === null && !state.isGuest);
+  const { start, isStarting } = useStartDemo();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -57,7 +69,26 @@ export function Header() {
           className={`${styles.nav} ${isMenuOpen ? '' : styles.navCollapsed}`}
           aria-label="Navegación principal"
         >
-          {NAV_ITEMS.map((item) => (
+          {isVisitor &&
+            VISITOR_LINKS.map((item) => (
+              <Link
+                key={item.hash}
+                to="/"
+                hash={item.hash}
+                className={styles.link}
+                onClick={() => setIsMenuOpen(false)}
+              >
+                {item.label}
+              </Link>
+            ))}
+
+          {isVisitor && (
+            <Link to="/login" className={`${styles.link} ${styles.navSignIn}`} onClick={() => setIsMenuOpen(false)}>
+              Iniciar sesión
+            </Link>
+          )}
+
+          {!isVisitor && NAV_ITEMS.map((item) => (
             <Link
               key={item.to}
               to={item.to}
@@ -81,15 +112,44 @@ export function Header() {
         </nav>
 
         <div className={styles.trailing}>
-          <StreakPill />
-          <ConnectionPill mode={mode} isGuest={isGuest} />
+          {isVisitor ? (
+            <>
+              <Link to="/login" className={styles.signIn}>
+                Iniciar sesión
+              </Link>
+              <Button
+                size="small"
+                onClick={() => void start('/')}
+                isLoading={isStarting}
+                icon={<Play size={14} aria-hidden="true" />}
+              >
+                Probar la demo
+              </Button>
+            </>
+          ) : (
+            <>
+              <StreakPill />
+              <ConnectionPill mode={mode} isGuest={isGuest} isDemo={isDemo} />
+            </>
+          )}
         </div>
       </div>
     </header>
   );
 }
 
-function ConnectionPill({ mode, isGuest }: { mode: string; isGuest: boolean }) {
+function ConnectionPill({ mode, isGuest, isDemo }: { mode: string; isGuest: boolean; isDemo: boolean }) {
+  // The demo runs on local data by design, so reporting the server as unreachable would be
+  // noise; the pill names what the visitor is actually in.
+  if (isDemo) {
+    return (
+      <span className={`${styles.status} ${styles.demo}`}>
+        <Sparkles size={14} aria-hidden="true" />
+        Modo demo
+      </span>
+    );
+  }
+
   if (mode === 'connecting') {
     return <span className={styles.status}>Conectando…</span>;
   }
