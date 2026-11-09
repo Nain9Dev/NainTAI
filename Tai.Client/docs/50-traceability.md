@@ -108,6 +108,16 @@ Suites:
 | REQ-074 | `deploy.test.ts` — the rewrite to `/index.html`. Production answered 404 for `/login`, `/analytics`, `/perfil` and `/register` on 2026-10-26 (checked with `curl`); needs the Vercel root directory set, see `41-blockers.md` | Unit |
 | REQ-075 | Browser pass at 390 px: brand and menu button visible below the bar (before: both at y 4–38 px under a 38 px bar) | Browser |
 
+## Discoverability
+
+| Requirement | Evidence | Suite |
+| :--- | :--- | :--- |
+| REQ-076 | `seo.test.ts > has exactly one canonical link equal to the host root`, `has one description of 70 to 160 characters` | Unit |
+| REQ-077 | `seo.test.ts > declares Open Graph and Twitter card metadata that agree with the canonical` | Unit |
+| REQ-078 | `seo.test.ts > embeds JSON-LD that parses and references the author by id` | Unit |
+| REQ-079 | `seo.test.ts > robots.txt allows everything and advertises the sitemap`, `sitemap.xml lists only the canonical root`; the build copies `public/` into `dist/` | Unit |
+| REQ-080 | `seo.test.ts > llms.txt starts with an H1 and a summary and links the repository and the main site` | Unit |
+
 ## Browser verification, 2026-10-26
 
 Production build served by `vite preview`, driven through the DevTools protocol, API unreachable.

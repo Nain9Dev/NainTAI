@@ -1,0 +1,9 @@
+# Simulacros TAI
+
+> Web exam simulator for the Spanish TAI civil service examination (INAP): practice exams under the official marking scale, a study mode with immediate correction and performance analytics per syllabus block. The interface is in Spanish.
+
+## Links
+
+- [Application](https://tai.naindev.com/): the simulator; it also works offline from a bundled question catalogue
+- [Source code](https://github.com/Nain9Dev/NainTAI): React and TypeScript client, ASP.NET Core API, requirements and architecture documents
+- [NainDev](https://www.naindev.com/): the author's main site

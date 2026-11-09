@@ -28,6 +28,7 @@ Labels: `[A]` the agent completes it alone · `[M]` mixed, a human action closes
 | T-026 | SPA fallback and asset caching for Vercel | `[A]` | ✅ REQ-074 in the repository; `[H]` to confirm the root directory, see `41-blockers.md` |
 | T-027 | Header below the NainDev suite bar; phone header on one row | `[A]` | ✅ REQ-075 |
 | T-028 | Split route components into chunks | `[A]` | ✅ First-visit JavaScript about 114 kB gzipped, below the 116 kB of the old single bundle, with a much richer landing |
+| T-029 | Discoverability baseline: canonical, social metadata, JSON-LD, `robots.txt`, `sitemap.xml`, `llms.txt` | `[A]` | ✅ REQ-076 to REQ-080; `seo.test.ts` written first and seen failing; `dist/` contains the three files. `[H]` once merged: confirm `https://tai.naindev.com/robots.txt` answers the file, not the SPA fallback |
 
 ## Next
 
