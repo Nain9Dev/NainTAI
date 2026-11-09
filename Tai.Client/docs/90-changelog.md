@@ -1,5 +1,18 @@
 # 90 — Changelog
 
+## 2026-11-09 — Discoverability baseline
+
+### Added
+
+- Canonical link, `og:url`, `og:site_name`, social image, Twitter card tags, author link and
+  `SoftwareApplication` JSON-LD in the static shell (REQ-076 to REQ-078).
+- `public/robots.txt`, `public/sitemap.xml` and `public/llms.txt`, published at the site root
+  by the Vite build (REQ-079, REQ-080).
+
+### Changed
+
+- The meta description is shortened from 165 to 148 characters to fit the 160-character limit.
+
 ## 2026-10-26 — Public landing, seeded demo and visual overhaul
 
 `tai.naindev.com` is a portfolio showpiece, but a visitor saw only a sign-in form: nothing of

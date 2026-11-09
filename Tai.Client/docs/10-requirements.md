@@ -106,3 +106,13 @@ a visitor must understand what it does and see it working within a minute, witho
 | REQ-073 | The demo shall work with no network: it shall use no account endpoint and shall fall back to the bundled catalogue for questions. | Implemented |
 | REQ-074 | When a route of the application is typed, bookmarked or reloaded, the host shall serve the application rather than answer 404. | Implemented |
 | REQ-075 | When the NainDev suite bar is present, the sticky header shall sit below it, so the bar never covers the brand or the menu button. | Implemented |
+
+## Discoverability
+
+| Id | Requirement | Status |
+| :--- | :--- | :--- |
+| REQ-076 | When a crawler fetches the site root, the static shell shall carry one canonical link equal to `https://tai.naindev.com/` and one meta description of 70 to 160 characters. | Implemented |
+| REQ-077 | When a link to the site is shared, the static shell shall provide Open Graph and Twitter card metadata whose URL equals the canonical and whose image is an absolute URL. | Implemented |
+| REQ-078 | When a search or AI engine reads the static shell, it shall find `SoftwareApplication` JSON-LD that names the author by `@id` and links the source repository. | Implemented |
+| REQ-079 | When a crawler requests `/robots.txt`, the system shall allow everything and advertise `/sitemap.xml`, which shall list only the indexable root. | Implemented |
+| REQ-080 | When an AI engine requests `/llms.txt`, the system shall serve an English Markdown summary with links to the application, the repository and the author's site. | Implemented |
