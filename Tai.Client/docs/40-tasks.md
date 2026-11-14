@@ -30,6 +30,8 @@ Labels: `[A]` the agent completes it alone · `[M]` mixed, a human action closes
 | T-028 | Split route components into chunks | `[A]` | ✅ First-visit JavaScript about 114 kB gzipped, below the 116 kB of the old single bundle, with a much richer landing |
 | T-029 | Discoverability baseline: canonical, social metadata, JSON-LD, `robots.txt`, `sitemap.xml`, `llms.txt` | `[A]` | ✅ REQ-076 to REQ-080; `seo.test.ts` written first and seen failing; `dist/` contains the three files. `[H]` once merged: confirm `https://tai.naindev.com/robots.txt` answers the file, not the SPA fallback |
 
+| T-030 | Installable on Android and iOS: manifest, icons, head tags | `[A]` | ✅ REQ-081 to REQ-084; `PwaInstallTests` written first and seen failing (feature workspace `specs/next-pwa-install/`). `[H]` once merged: install on a phone and confirm the live manifest is served as a file, not the SPA fallback |
+
 ## Next
 
 | Id | Task | Label | Done when |

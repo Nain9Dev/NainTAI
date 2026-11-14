@@ -1,5 +1,14 @@
 # 90 — Changelog
 
+## Unreleased — Installable on phones
+
+### Added
+
+- `public/manifest.webmanifest`, four PNG icons in `public/icons/` and the web-app tags in the
+  static shell, so the site installs on Android Chrome and iOS Safari with the name `NainTAI`
+  (REQ-081 to REQ-083). No service worker: installable only (REQ-084).
+- `PwaInstallTests` in the .NET unit suite, because the CI client job runs the build but not Vitest.
+
 ## 2026-11-09 — Discoverability baseline
 
 ### Added

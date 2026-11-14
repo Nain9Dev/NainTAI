@@ -118,6 +118,15 @@ Suites:
 | REQ-079 | `seo.test.ts > robots.txt allows everything and advertises the sitemap`, `sitemap.xml lists only the canonical root`; the build copies `public/` into `dist/` | Unit |
 | REQ-080 | `seo.test.ts > llms.txt starts with an H1 and a summary and links the repository and the main site` | Unit |
 
+## Installability
+
+| Requirement | Evidence | Suite |
+| :--- | :--- | :--- |
+| REQ-081 | `PwaInstallTests > Manifest_names_the_app_and_opens_it_standalone_from_the_root` (xUnit, run by the CI backend job); Chrome reports no installability error on the built `dist/` | Unit + Browser |
+| REQ-082 | `PwaInstallTests > Manifest_declares_192_and_512_icons_and_a_maskable_one_each_at_its_real_size`; opacity and safe zone by the install verification script, not by a test | Unit + Script |
+| REQ-083 | `PwaInstallTests > Apple_touch_icon_is_a_180_pixel_png`, `Static_shell_links_the_manifest_and_carries_the_ios_tags` | Unit |
+| REQ-084 | By construction: no service worker file or registration in the client. Not tested | Review |
+
 ## Browser verification, 2026-10-26
 
 Production build served by `vite preview`, driven through the DevTools protocol, API unreachable.
