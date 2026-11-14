@@ -116,3 +116,12 @@ a visitor must understand what it does and see it working within a minute, witho
 | REQ-078 | When a search or AI engine reads the static shell, it shall find `SoftwareApplication` JSON-LD that names the author by `@id` and links the source repository. | Implemented |
 | REQ-079 | When a crawler requests `/robots.txt`, the system shall allow everything and advertise `/sitemap.xml`, which shall list only the indexable root. | Implemented |
 | REQ-080 | When an AI engine requests `/llms.txt`, the system shall serve an English Markdown summary with links to the application, the repository and the author's site. | Implemented |
+
+## Installability
+
+| Id | Requirement | Status |
+| :--- | :--- | :--- |
+| REQ-081 | When a visitor opens the site on a phone, the system shall publish `/manifest.webmanifest` declaring the app as standalone, with `id`, `start_url` and `scope` equal to `/`, `short_name` `NainTAI`, `name` `NainTAI · Simulacros TAI` and the page's meta description. | Implemented |
+| REQ-082 | The manifest shall declare PNG icons at `/icons/`: 192 px and 512 px with purpose `any`, and a 512 px opaque `maskable` icon whose mark stays inside the centred circle of radius 40% of the width. | Implemented |
+| REQ-083 | The static shell shall link the manifest and an opaque 180 px `apple-touch-icon`, and carry the iOS and Android web-app meta tags with the label `NainTAI` and the `black` status bar style. | Implemented |
+| REQ-084 | The site shall register no service worker and cache nothing for install: it is installable, not offline-capable. | Implemented |
