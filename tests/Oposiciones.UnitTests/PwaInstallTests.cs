@@ -32,7 +32,7 @@ public sealed class PwaInstallTests
     {
         var path = Path.Combine(ClientRoot, "public", "manifest.webmanifest");
         Assert.True(File.Exists(path), "public/manifest.webmanifest must exist");
-        return JsonDocument.Parse(File.ReadAllText(path)).RootElement;
+        return JsonElement.Parse(File.ReadAllText(path));
     }
 
     private static string ReadShell() => File.ReadAllText(Path.Combine(ClientRoot, "index.html"));
