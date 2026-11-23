@@ -18,7 +18,7 @@
     <!-- Infrastructure & Database -->
     <PackageVersion Include="Dapper" Version="2.1.66" />
     <PackageVersion Include="Npgsql" Version="10.0.3" />
-    <PackageVersion Include="Microsoft.Extensions.Caching.StackExchangeRedis" Version="10.0.11" />
+    <PackageVersion Include="Microsoft.Extensions.Caching.StackExchangeRedis" Version="11.0.0" />
 
     <!-- Web & Swagger -->
     <PackageVersion Include="Microsoft.AspNetCore.OpenApi" Version="8.0.22" />
